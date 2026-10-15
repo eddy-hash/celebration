@@ -1,0 +1,307 @@
+{
+  "nav": {
+    "home": "Home",
+    "kitambaa": "Fabrics",
+    "myOrder": "My Order",
+    "contact": "Contact",
+    "login": "Sign In",
+    "logout": "Sign Out",
+    "welcome": "Welcome",
+    "dashboard": "Dashboard",
+    "invites": "Invites",
+    "orders": "Orders",
+    "payments": "Payments",
+    "uniforms": "Fabrics",
+    "auditLogs": "Audit Logs",
+    "settings": "Settings"
+  },
+  "hero": {
+    "welcome": "Welcome {{name}}",
+    "title": "Baptism Celebration",
+    "titleHost": "{{name}}'s Celebration",
+    "host": "Host",
+    "eyebrow": "Baptism Celebration · 08 November 2026",
+    "subtitle": "We lovingly curate the finest fabrics for your baptism celebration. Quality, Beauty, and Value.",
+    "ctaPrimary": "Choose Your Fabric",
+    "ctaLogin": "Sign In with Invite",
+    "ctaSeeMore": "See More",
+    "stats": {
+      "invited": "Invited",
+      "quality": "Quality",
+      "support": "Support"
+    },
+    "badgeBest": "Best Choice",
+    "visualTitle": "Floral Kitambaa",
+    "visualSubtitle": "Premium · Made in Tanzania",
+    "est": "Est. 2026",
+    "dateLabel": "Celebration Date",
+    "dateShort": "08 Nov 2026",
+    "dateLong": "Saturday, 08 November 2026",
+    "countdownLabel": "Days remaining",
+    "countdownDays": "days"
+  },
+  "trust": {
+    "quality": {
+      "title": "Premium Quality",
+      "desc": "Finest and durable fabrics"
+    },
+    "shipping": {
+      "title": "Fast Delivery",
+      "desc": "Within and outside Tanzania"
+    },
+    "payment": {
+      "title": "Secure Payment",
+      "desc": "Pay with Mixx by Yas"
+    },
+    "support": {
+      "title": "Great Support",
+      "desc": "We are here for you always"
+    }
+  },
+  "categories": {
+    "eyebrow": "OUR FABRICS",
+    "title": "Fabric Categories",
+    "subtitle": "Choose the category that fits you from our carefully selected premium fabrics",
+    "men": {
+      "title": "For Men",
+      "desc": "Modern shirts and trousers"
+    },
+    "women": {
+      "title": "For Women",
+      "desc": "Elegant and dignified attire"
+    },
+    "accessories": {
+      "title": "Accessories",
+      "desc": "Shoes, bags and more"
+    },
+    "viewProducts": "View Fabrics"
+  },
+  "cta": {
+    "eyebrow": "Welcome Now",
+    "title": "Ready to choose your fabric?",
+    "subtitle": "Sign in with your invite code and start ordering with ease. We'll help you choose the right fabric."
+  },
+  "contact": {
+    "title": "We Make It Special",
+    "desc": "We accept custom orders for your events. Contact us for details.",
+    "pageSubtitle": "We're here to help with any questions",
+    "chat": "Chat with Us",
+    "call": "Call Us",
+    "phone": "Phone",
+    "whatsapp": "WhatsApp",
+    "hours": "Business Hours",
+    "hoursValue": "Monday - Saturday, 8:00 - 20:00",
+    "location": "Location"
+  },
+  "auth": {
+    "title": "Sign In",
+    "adminTitle": "Admin Access",
+    "subtitle": "Enter your invite code or phone number",
+    "adminSubtitle": "Enter administrator password",
+    "codeTab": "Invite",
+    "phoneTab": "Phone",
+    "adminTab": "Admin",
+    "codeLabel": "Invite Code",
+    "codePlaceholder": "INV-A1B2C3",
+    "phoneLabel": "Phone Number",
+    "phonePlaceholder": "0710209220",
+    "adminLabel": "Password",
+    "adminPlaceholder": "••••",
+    "submitCode": "Sign In",
+    "submitPhone": "Sign In",
+    "submitAdmin": "Sign In as Admin",
+    "help": "Number not working? Contact us:",
+    "loading": "Signing in...",
+    "codeTabShort": "Code",
+    "phoneTabShort": "Phone",
+    "errorCode": "Invalid invite code",
+    "errorPhone": "Phone not registered",
+    "errorAdmin": "Invalid password"
+  },
+  "kitambaa": {
+    "title": "Choose Your Fabric",
+    "subtitle": "All products are special for {{name}}'s celebration",
+    "empty": "No fabrics yet",
+    "emptyDesc": "Please check back later or contact us.",
+    "all": "All",
+    "size": "Size",
+    "color": "Color",
+    "quantity": "Quantity",
+    "selectSize": "Select size",
+    "selectColor": "Select color",
+    "addToCart": "Add to Cart",
+    "buyNow": "Order Now",
+    "added": "Added!",
+    "outOfStock": "Out of stock",
+    "discount": "Discount"
+  },
+  "cart": {
+    "title": "Your Cart",
+    "empty": "Your cart is empty",
+    "emptyDesc": "Choose a fabric to get started.",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "free": "Free",
+    "total": "Total",
+    "checkout": "Proceed to Checkout",
+    "remove": "Remove",
+    "continue": "Continue Shopping",
+    "browse": "Browse Fabrics"
+  },
+  "checkout": {
+    "title": "Complete Order",
+    "info": "Your Information",
+    "name": "Full Name",
+    "phone": "Phone Number",
+    "region": "Region",
+    "address": "Address",
+    "notes": "Additional Notes",
+    "payment": "Payment Method",
+    "payWithMixx": "Pay with Mixx by Yas",
+    "payWithMixxDesc": "Easy payment via Mixx by Yas (Tigo Pesa)",
+    "recommended": "RECOMMENDED",
+    "placeOrder": "Place Order",
+    "orderSummary": "Order Summary",
+    "amount": "Amount",
+    "errorNamePhone": "Please fill in name and phone",
+    "errorInvalidPhone": "Invalid phone number",
+    "errorGeneral": "An error occurred. Please try again."
+  },
+  "payment": {
+    "title": "Pay with Mixx by Yas",
+    "instructions": "Follow these steps on your phone:",
+    "referenceLabel": "YOUR REFERENCE NUMBER",
+    "referenceNote": "Use this as reference",
+    "expiresIn": "Time remaining",
+    "confirmPaid": "I'VE PAID — Confirm Payment",
+    "awaiting": "Verifying Your Payment",
+    "awaitingDesc": "Thank you! We are verifying your payment. You'll receive an SMS once confirmed.",
+    "awaitingTime": "Usually takes 5-15 minutes",
+    "success": "Payment Successful!",
+    "successDesc": "Your order has been confirmed.",
+    "orderNumber": "Order Number",
+    "failed": "Payment Failed",
+    "expired": "Payment Expired",
+    "tryAgain": "Try Again",
+    "supportTitle": "Number not working? Contact us:",
+    "viewOrder": "View My Order",
+    "goHome": "Back Home",
+    "status": {
+      "pending": "Pending",
+      "awaiting_verification": "Verifying",
+      "success": "Successful",
+      "failed": "Failed",
+      "expired": "Expired"
+    }
+  },
+  "order": {
+    "title": "My Order",
+    "empty": "You have no orders yet",
+    "emptyDesc": "Choose a fabric to get started.",
+    "viewOrder": "View Order",
+    "payNow": "Pay Now",
+    "items": "Items",
+    "itemsCount": "items",
+    "placedOn": "Placed on",
+    "status": {
+      "pending": "Pending",
+      "awaiting_payment": "Awaiting Payment",
+      "paid": "Paid",
+      "cancelled": "Cancelled",
+      "fulfilled": "Fulfilled"
+    }
+  },
+  "admin": {
+    "eyebrow": "Admin Dashboard",
+    "welcome": "Welcome",
+    "subtitle": "Celebration overview",
+    "refresh": "Refresh",
+    "logout": "Sign Out",
+    "loading": "Loading...",
+    "missingTenant": "Tenant ID Missing",
+    "missingTenantDesc": "Sign in as a guest first so we can pick up the tenantId, then return to /admin.",
+    "kpi": {
+      "invited": "Invited",
+      "confirmed": "Confirmed Guests",
+      "orders": "Total Orders",
+      "revenue": "Revenue",
+      "confirmedCount": "confirmed",
+      "pendingCount": "pending",
+      "paidCount": "paid",
+      "paymentsCount": "payments"
+    },
+    "uniforms": {
+      "title": "Fabric Tracking",
+      "totalCost": "Total cost",
+      "ordered": "Ordered",
+      "delivered": "Delivered",
+      "distributed": "Distributed",
+      "without": "Without Fabric",
+      "withUniform": "Received fabric",
+      "progressLabel": "Received fabric"
+    },
+    "paymentsPending": {
+      "title": "Payments awaiting verification",
+      "desc": "You have {{count}} payments needing verification"
+    },
+    "recent": {
+      "invites": "Recent Invites",
+      "payments": "Recent Payments",
+      "noInvites": "No invites yet",
+      "noPayments": "No payments yet"
+    },
+    "nav": {
+      "dashboard": "Dashboard",
+      "invites": "Invites",
+      "orders": "Orders",
+      "payments": "Payments",
+      "uniforms": "Fabrics",
+      "auditLogs": "Audit Logs",
+      "settings": "Settings"
+    },
+    "role": "Administrator"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "tryAgain": "Try Again",
+    "close": "Close",
+    "back": "Back",
+    "or": "or",
+    "noImage": "No image",
+    "notFound": "Not found"
+  },
+  "footer": {
+    "tagline": "Premium fabrics for your baptism celebration",
+    "quickLinks": "Quick Links",
+    "contactUs": "Contact Us",
+    "copyright": "© 2026 Mama Dani Baptisim Celebration",
+    "payments": "Mixx by Yas · M-Pesa · Airtel Money"
+  },
+  "audit": {
+    "title": "System Audit Logs",
+    "subtitle": "Track all admin and guest activity",
+    "search": "Search by name, phone, or description...",
+    "filters": "Filters",
+    "allActions": "All Actions",
+    "allTypes": "All Types",
+    "today": "Today",
+    "last7": "Last 7 Days",
+    "last30": "Last 30 Days",
+    "allTime": "All Time",
+    "empty": "No audit logs",
+    "emptyDesc": "No activity has been recorded yet.",
+    "columns": {
+      "time": "Time",
+      "action": "Action",
+      "actor": "Actor",
+      "target": "Target",
+      "description": "Description",
+      "ip": "IP"
+    },
+    "stats": {
+      "total": "Total Actions",
+      "today": "Today"
+    }
+  }
+}

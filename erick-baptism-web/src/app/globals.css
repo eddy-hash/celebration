@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; }
+
+  body {
+    @apply bg-bg-base text-text-primary font-body antialiased;
+    background-image:
+      radial-gradient(ellipse at top left, rgba(233,30,99,0.08), transparent 50%),
+      radial-gradient(ellipse at bottom right, rgba(212,160,23,0.05), transparent 50%);
+    background-attachment: fixed;
+  }
+
+  h1, h2, h3, h4 { @apply font-display; }
+
+  ::selection { @apply bg-brand text-white; }
+}
+
+@layer components {
+  .eyebrow {
+    @apply text-xs uppercase tracking-[0.25em] font-semibold text-gold;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl
+           bg-brand text-white font-semibold shadow-button
+           hover:bg-brand-dark transition-all duration-200 hover:scale-[1.02]
+           active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl
+           border border-border-subtle text-white font-semibold
+           hover:bg-bg-elevated transition-all duration-200;
+  }
+  .card {
+    @apply bg-bg-elevated rounded-2xl border border-border-subtle
+           transition-all duration-300 hover:border-brand/40 hover:shadow-card-hover;
+  }
+  .input {
+    @apply w-full px-4 py-3 rounded-xl bg-bg-elevated border border-border-subtle
+           text-white placeholder-text-muted
+           focus:outline-none focus:border-brand focus:ring-2 focus:ring-brand/30
+           transition-all;
+  }
+  .label {
+    @apply block text-sm font-medium text-text-secondary mb-2;
+  }
+}
+
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: #0D0D0D; }
+::-webkit-scrollbar-thumb { background: #2E2E2E; border-radius: 5px; }
+::-webkit-scrollbar-thumb:hover { background: #E91E63; }
+
+/* Hide scrollbar for horizontal filter chips */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Premium heading refinements */
+.font-display {
+  letter-spacing: -0.02em;
+  font-feature-settings: "kern" 1, "liga" 1;
+}
+
+/* Better text rendering for adult readability */
+body {
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1;
+}
+
+/* Refined card transitions */
+.card {
+  will-change: transform;
+}
+
+/* iOS safe area for bottom sheets */
+.pb-safe {
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+}

@@ -1,0 +1,307 @@
+{
+  "nav": {
+    "home": "Mwanzo",
+    "kitambaa": "Kitambaa",
+    "myOrder": "Oda Yangu",
+    "contact": "Mawasiliano",
+    "login": "Ingia",
+    "logout": "Toka",
+    "welcome": "Karibu",
+    "dashboard": "Dashibodi",
+    "invites": "Waalikwa",
+    "orders": "Oda",
+    "payments": "Malipo",
+    "uniforms": "Kitambaa",
+    "auditLogs": "Kumbukumbu",
+    "settings": "Mipangilio"
+  },
+  "hero": {
+    "welcome": "Karibu {{name}}",
+    "title": "Baptism Celebration",
+    "titleHost": "Sherehe ya {{name}}",
+    "host": "Mwenyeji",
+    "eyebrow": "Sherehe ya Ubatizo · 08 Novemba 2026",
+    "subtitle": "Tunashauri kwa upendo vitambaa bora kwa ajili ya sherehe yako ya ubatizo. Ubora, Urembo na Thamani.",
+    "ctaPrimary": "Chagua Kitambaa",
+    "ctaLogin": "Ingia kwa Mwaliko",
+    "ctaSeeMore": "Ona Zaidi",
+    "stats": {
+      "invited": "Waalikwa",
+      "quality": "Ubora",
+      "support": "Msaada"
+    },
+    "badgeBest": "Bora Zaidi",
+    "visualTitle": "Floral Kitambaa",
+    "visualSubtitle": "Ubora · Imetengenezwa Tanzania",
+    "est": "Kuanzishwa 2026",
+    "dateLabel": "Tarehe ya Sherehe",
+    "dateShort": "08 Nov 2026",
+    "dateLong": "Jumamosi, 08 Novemba 2026",
+    "countdownLabel": "Siku zilizobaki",
+    "countdownDays": "siku"
+  },
+  "trust": {
+    "quality": {
+      "title": "Ubora wa Juu",
+      "desc": "Vitambaa bora na vya kudumu"
+    },
+    "shipping": {
+      "title": "Usafirishaji wa Haraka",
+      "desc": "Ndani na nje ya Tanzania"
+    },
+    "payment": {
+      "title": "Malipo Salama",
+      "desc": "Lipa kwa Mixx by Yas"
+    },
+    "support": {
+      "title": "Huduma Bora",
+      "desc": "Tupo kwa ajili yako kila wakati"
+    }
+  },
+  "categories": {
+    "eyebrow": "VITAMBAA VYETU",
+    "title": "Aina za Kitambaa",
+    "subtitle": "Chagua aina inayokufaa kutoka kwenye vitambaa vyetu bora vilivyochaguliwa kwa uangalifu",
+    "men": {
+      "title": "Kwa Wanaume",
+      "desc": "Mashati na suruali za kisasa"
+    },
+    "women": {
+      "title": "Kwa Wanawake",
+      "desc": "Mavazi ya kihifari na ya heshima"
+    },
+    "accessories": {
+      "title": "Vifaa Vingine",
+      "desc": "Viatu, mikoba na mengineyo"
+    },
+    "viewProducts": "Ona Kitambaa"
+  },
+  "cta": {
+    "eyebrow": "Karibu Sasa",
+    "title": "Tayari kuchagua kitambaa chako?",
+    "subtitle": "Ingia kwa namba yako ya mwaliko na uanze kuagiza kwa urahisi. Tutakusaidia kuchagua kitambaa kinachokufaa."
+  },
+  "contact": {
+    "title": "Tunakufanyia Maalum",
+    "desc": "Tunapokea oda maalum kwa matukio yako. Wasiliana nasi kwa maelezo zaidi.",
+    "pageSubtitle": "Tupo hapa kukusaidia kwa maswali yoyote",
+    "chat": "Chat na Sisi",
+    "call": "Piga Simu",
+    "phone": "Simu",
+    "whatsapp": "WhatsApp",
+    "hours": "Saa za Kazi",
+    "hoursValue": "Jumatatu - Jumamosi, 8:00 - 20:00",
+    "location": "Mahali"
+  },
+  "auth": {
+    "title": "Ingia kwenye Sherehe",
+    "adminTitle": "Ufikiaji wa Admin",
+    "subtitle": "Weka namba yako ya mwaliko au namba ya simu",
+    "adminSubtitle": "Weka namba ya siri ya msimamizi",
+    "codeTab": "Mwaliko",
+    "phoneTab": "Simu",
+    "adminTab": "Admin",
+    "codeLabel": "Namba ya Mwaliko",
+    "codePlaceholder": "INV-A1B2C3",
+    "phoneLabel": "Namba ya Simu",
+    "phonePlaceholder": "0710209220",
+    "adminLabel": "Namba ya Siri",
+    "adminPlaceholder": "••••",
+    "submitCode": "Ingia",
+    "submitPhone": "Ingia",
+    "submitAdmin": "Ingia kama Admin",
+    "help": "Namba haifanyi kazi? Wasiliana nasi:",
+    "loading": "Inaingia...",
+    "codeTabShort": "Code",
+    "phoneTabShort": "Simu",
+    "errorCode": "Namba ya mwaliko si sahihi",
+    "errorPhone": "Namba haijasajiliwa",
+    "errorAdmin": "Namba ya siri si sahihi"
+  },
+  "kitambaa": {
+    "title": "Chagua Kitambaa Chako",
+    "subtitle": "Bidhaa zote ni maalum kwa sherehe ya {{name}}",
+    "empty": "Hakuna kitambaa bado",
+    "emptyDesc": "Tafadhali rudi baadaye au wasiliana nasi.",
+    "all": "Zote",
+    "size": "Ukubwa",
+    "color": "Rangi",
+    "quantity": "Idadi",
+    "selectSize": "Chagua ukubwa",
+    "selectColor": "Chagua rangi",
+    "addToCart": "Ongeza kwenye Kikapu",
+    "buyNow": "Agiza Sasa",
+    "added": "Imeongezwa!",
+    "outOfStock": "Imeisha kwenye stoo",
+    "discount": "Punguzo"
+  },
+  "cart": {
+    "title": "Kikapu Chako",
+    "empty": "Kikapu chako ni kitupu",
+    "emptyDesc": "Chagua kitambaa kuanza.",
+    "subtotal": "Jumla Ndogo",
+    "shipping": "Usafirishaji",
+    "free": "Bure",
+    "total": "Jumla",
+    "checkout": "Nenda kwa Malipo",
+    "remove": "Ondoa",
+    "continue": "Endelea Kununua",
+    "browse": "Chagua Kitambaa"
+  },
+  "checkout": {
+    "title": "Kamilisha Oda",
+    "info": "Taarifa Zako",
+    "name": "Jina Kamili",
+    "phone": "Namba ya Simu",
+    "region": "Mkoa",
+    "address": "Anwani",
+    "notes": "Maelezo ya Ziada",
+    "payment": "Njia ya Malipo",
+    "payWithMixx": "Lipa kwa Mixx by Yas",
+    "payWithMixxDesc": "Lipa kwa urahisi kwa kutumia Mixx by Yas (Tigo Pesa)",
+    "recommended": "INAPENDEKEZWA",
+    "placeOrder": "Weka Oda",
+    "orderSummary": "Muhtasari wa Oda",
+    "amount": "Kiasi",
+    "errorNamePhone": "Jaza jina na namba ya simu",
+    "errorInvalidPhone": "Namba ya simu si sahihi",
+    "errorGeneral": "Hitilafu imetokea. Jaribu tena."
+  },
+  "payment": {
+    "title": "Lipa kwa Mixx by Yas",
+    "instructions": "Fuata hatua hizi kwenye simu yako:",
+    "referenceLabel": "NAMBA YAKO YA KUMBUKUMBU",
+    "referenceNote": "Weka namba hii kama reference",
+    "expiresIn": "Muda uliobaki",
+    "confirmPaid": "NIMELIPA — Thibitisha Malipo",
+    "awaiting": "Tunathibitisha Malipo Yako",
+    "awaitingDesc": "Asante! Tunathibitisha malipo yako. Utapata SMS mara yatakapothibitishwa.",
+    "awaitingTime": "Kawaida inachukua dakika 5-15",
+    "success": "Malipo Yamefanikiwa!",
+    "successDesc": "Oda yako imethibitishwa.",
+    "orderNumber": "Namba ya Oda",
+    "failed": "Malipo Hayakufanikiwa",
+    "expired": "Muda wa Malipo Umeisha",
+    "tryAgain": "Jaribu Tena",
+    "supportTitle": "Namba haifanyi kazi? Wasiliana nasi:",
+    "viewOrder": "Ona Oda Yangu",
+    "goHome": "Rudi Nyumbani",
+    "status": {
+      "pending": "Inasubiri",
+      "awaiting_verification": "Inathibitishwa",
+      "success": "Imefanikiwa",
+      "failed": "Imeshindwa",
+      "expired": "Imeisha Muda"
+    }
+  },
+  "order": {
+    "title": "Oda Yangu",
+    "empty": "Hauna oda bado",
+    "emptyDesc": "Chagua kitambaa kuanza.",
+    "viewOrder": "Ona Oda",
+    "payNow": "Lipa Sasa",
+    "items": "Bidhaa",
+    "itemsCount": "bidhaa",
+    "placedOn": "Iliwekwa",
+    "status": {
+      "pending": "Inasubiri",
+      "awaiting_payment": "Inasubiri Malipo",
+      "paid": "Imelipwa",
+      "cancelled": "Imefutwa",
+      "fulfilled": "Imekamilika"
+    }
+  },
+  "admin": {
+    "eyebrow": "Dashibodi ya Admin",
+    "welcome": "Karibu",
+    "subtitle": "Muhtasari wa sherehe",
+    "refresh": "Sasisha",
+    "logout": "Toka",
+    "loading": "Inapakia...",
+    "missingTenant": "Tenant ID Haipo",
+    "missingTenantDesc": "Ingia kama mgeni kwanza ili tupate tenantId, kisha rudi /admin.",
+    "kpi": {
+      "invited": "Walioalikwa",
+      "confirmed": "Wageni Wamekubali",
+      "orders": "Oda Zote",
+      "revenue": "Mapato",
+      "confirmedCount": "wamekubali",
+      "pendingCount": "wanasubiri",
+      "paidCount": "zimelipwa",
+      "paymentsCount": "malipo"
+    },
+    "uniforms": {
+      "title": "Ufuatiliaji wa Kitambaa",
+      "totalCost": "Jumla ya gharama",
+      "ordered": "Zilizoagizwa",
+      "delivered": "Zilizofikishwa",
+      "distributed": "Zimesambazwa",
+      "without": "Bila Sare",
+      "withUniform": "Wamepata kitambaa",
+      "progressLabel": "Wamepata kitambaa"
+    },
+    "paymentsPending": {
+      "title": "Malipo yanasubiri uthibitisho",
+      "desc": "Una malipo {{count}} yanayohitaji uthibitisho"
+    },
+    "recent": {
+      "invites": "Waalikwa wa Karibuni",
+      "payments": "Malipo ya Karibuni",
+      "noInvites": "Hakuna waalikwa bado",
+      "noPayments": "Hakuna malipo bado"
+    },
+    "nav": {
+      "dashboard": "Dashibodi",
+      "invites": "Waalikwa",
+      "orders": "Oda",
+      "payments": "Malipo",
+      "uniforms": "Kitambaa",
+      "auditLogs": "Kumbukumbu",
+      "settings": "Mipangilio"
+    },
+    "role": "Msimamizi"
+  },
+  "common": {
+    "loading": "Inapakia...",
+    "error": "Hitilafu imetokea",
+    "tryAgain": "Jaribu Tena",
+    "close": "Funga",
+    "back": "Rudi",
+    "or": "au",
+    "noImage": "Hakuna picha",
+    "notFound": "Haipatikani"
+  },
+  "footer": {
+    "tagline": "Vitambaa bora kwa sherehe yako ya ubatizo",
+    "quickLinks": "Viungo vya Haraka",
+    "contactUs": "Wasiliana Nasi",
+    "copyright": "© 2026 Mama Dani Baptisim Celebration",
+    "payments": "Mixx by Yas · M-Pesa · Airtel Money"
+  },
+  "audit": {
+    "title": "Kumbukumbu za Mfumo",
+    "subtitle": "Fuatilia shughuli zote za admin na wageni",
+    "search": "Tafuta kwa jina, namba, au maelezo...",
+    "filters": "Vichujio",
+    "allActions": "Vitendo Vyote",
+    "allTypes": "Aina Zote",
+    "today": "Leo",
+    "last7": "Siku 7 Zilizopita",
+    "last30": "Siku 30 Zilizopita",
+    "allTime": "Wakati Wote",
+    "empty": "Hakuna kumbukumbu",
+    "emptyDesc": "Hakuna shughuli zilizorekodiwa bado.",
+    "columns": {
+      "time": "Muda",
+      "action": "Kitendo",
+      "actor": "Mtendaji",
+      "target": "Lengo",
+      "description": "Maelezo",
+      "ip": "IP"
+    },
+    "stats": {
+      "total": "Jumla ya Shughuli",
+      "today": "Za Leo"
+    }
+  }
+}
