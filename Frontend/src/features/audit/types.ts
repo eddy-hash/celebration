@@ -1,0 +1,1 @@
+export interface AuditLog { id: string; action: string; actorId?: string; actorName?: string; actorRole?: string; actorPhone?: string; targetType?: string; targetName?: string; description?: string; ipAddress?: string; createdAt: string; }

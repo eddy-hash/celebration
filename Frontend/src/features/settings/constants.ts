@@ -1,0 +1,4 @@
+export const SETTINGS_I18N = {
+  sw: { title: 'Mipangilio', subtitle: 'Mipangilio ya sherehe', general: 'Taarifa za Sherehe', contact: 'Mawasiliano', payment: 'Malipo', honoreeName: 'Jina la Mwenyeji', phonePrimary: 'Simu ya Kwanza', phoneSecondary: 'Simu ya Pili', whatsapp: 'WhatsApp', mixx: 'Namba ya Biashara ya Mixx', mixxLocked: 'Imefungwa', save: 'Hifadhi', saved: 'Imehifadhiwa!', lockedNote: 'Namba ya malipo imefungwa kwa usalama.' },
+  en: { title: 'Settings', subtitle: 'Celebration settings', general: 'Celebration Info', contact: 'Contact', payment: 'Payment', honoreeName: 'Host Name', phonePrimary: 'Primary Phone', phoneSecondary: 'Secondary Phone', whatsapp: 'WhatsApp', mixx: 'Mixx Business Number', mixxLocked: 'Locked', save: 'Save', saved: 'Saved!', lockedNote: 'Payment number is locked for security.' },
+} as const;

@@ -1,0 +1,26 @@
+export const UNIFORMS_I18N = {
+  sw: {
+    title: 'Kitambaa', subtitle: 'Simamia oda na usambazaji wa kitambaa',
+    catalog: 'Vitambaa Vilivyopo', catalogDesc: 'Bidhaa zinazopatikana',
+    orders: 'Oda za Waalikwa', ordersDesc: 'Rekebisha ukubwa, rangi, idadi na gharama',
+    empty: 'Hakuna oda bado', emptyDesc: 'Oda zitaonekana hapa waalikwa wanapoweka',
+    price: 'Bei', stock: 'Stoo',
+    customer: 'Mteja', orderNum: 'Oda', status: 'Hali',
+    size: 'Ukubwa', color: 'Rangi', qty: 'Idadi', cost: 'Gharama',
+    edit: 'Rekebisha', save: 'Hifadhi', cancel: 'Ghairi',
+    total: 'Jumla', saved: 'Imehifadhiwa!',
+    statusLabels: { awaiting_payment: 'Inasubiri Malipo', paid: 'Imelipwa', fulfilled: 'Imekamilika', cancelled: 'Imefutwa', pending: 'Inasubiri' },
+  },
+  en: {
+    title: 'Fabrics', subtitle: 'Manage orders and fabric distribution',
+    catalog: 'Available Fabrics', catalogDesc: 'Products in stock',
+    orders: 'Guest Orders', ordersDesc: 'Edit size, color, quantity, and cost',
+    empty: 'No orders yet', emptyDesc: 'Orders will appear here',
+    price: 'Price', stock: 'Stock',
+    customer: 'Customer', orderNum: 'Order', status: 'Status',
+    size: 'Size', color: 'Color', qty: 'Qty', cost: 'Cost',
+    edit: 'Edit', save: 'Save', cancel: 'Cancel',
+    total: 'Total', saved: 'Saved!',
+    statusLabels: { awaiting_payment: 'Awaiting Payment', paid: 'Paid', fulfilled: 'Fulfilled', cancelled: 'Cancelled', pending: 'Pending' },
+  },
+} as const;

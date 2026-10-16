@@ -1,0 +1,26 @@
+export const INVITATION_T = {
+  sw: {
+    headline: 'Mwaliko wa Sherehe ya Ubatizo',
+    invitePrefix: 'Kwa heshima na furaha, tunakualika',
+    celebrationOf: 'Sherehe ya Ubatizo wa',
+    guest: 'Mgeni', date: 'Tarehe',
+    code: 'Namba ya Mwaliko',
+    codeNote: 'Hii ni namba yako ya kuingia. Itunze kwa uangalifu.',
+    host: 'Familia ya Edsoni',
+    signature: 'Kwa Upendo wa Kina',
+    verse: 'Basi, kila mmoja wetu aishi maisha yampendezayo Mungu.',
+    verseRef: '— Warumi 15:2',
+  },
+  en: {
+    headline: 'Baptism Celebration Invitation',
+    invitePrefix: 'With honor and joy, we invite you',
+    celebrationOf: 'Baptism Celebration of',
+    guest: 'Guest', date: 'Date',
+    code: 'Invitation Code',
+    codeNote: 'This is your entry code. Keep it safe.',
+    host: 'The Edsoni Family',
+    signature: 'With Deep Love',
+    verse: 'Let each of us please his neighbor for his good.',
+    verseRef: '— Romans 15:2',
+  },
+} as const;
