@@ -143,7 +143,7 @@ export default function HomePage() {
                   <p className="text-text-secondary text-xs sm:text-sm font-medium uppercase tracking-[0.2em]">
                     {text.celebrationLine}
                   </p>
-                  <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl xl:text-7xl leading-[1.05] tracking-tight text-white">
+                  <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl xl:text-7xl leading-[1.05] tracking-tight text-text-primary">
                     <span className="text-brand">{text.celebrant}</span>
                   </h1>
                 </motion.div>
@@ -182,7 +182,7 @@ export default function HomePage() {
                       { value: '24/7', label: text.stats.support },
                     ].map((s) => (
                       <div key={s.label}>
-                        <div className="font-display text-xl sm:text-2xl lg:text-3xl font-bold text-white">{s.value}</div>
+                        <div className="font-display text-xl sm:text-2xl lg:text-3xl font-bold text-text-primary">{s.value}</div>
                         <div className="text-[10px] sm:text-xs text-text-muted uppercase tracking-widest mt-0.5">{s.label}</div>
                       </div>
                     ))}
@@ -201,8 +201,8 @@ export default function HomePage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-bg-base/80 via-transparent to-bg-base/30" />
                   <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-3">
                     <div className="min-w-0">
-                      <div className="font-display text-xl sm:text-2xl text-white">{text.visual.title}</div>
-                      <div className="text-white/80 text-[10px] sm:text-xs mt-0.5">{text.visual.subtitle}</div>
+                      <div className="font-display text-xl sm:text-2xl text-text-primary">{text.visual.title}</div>
+                      <div className="text-text-primary/80 text-[10px] sm:text-xs mt-0.5">{text.visual.subtitle}</div>
                     </div>
                     <div className="px-2.5 py-1 rounded-full bg-gold/25 backdrop-blur border border-gold/40 flex-shrink-0">
                       <span className="text-gold text-[9px] sm:text-[10px] font-bold tracking-wider uppercase">
@@ -211,7 +211,7 @@ export default function HomePage() {
                     </div>
                   </div>
                   <div className="absolute top-5 right-5 px-3 py-1.5 rounded-full bg-bg-base/70 backdrop-blur border border-border-subtle">
-                    <span className="text-white text-[9px] sm:text-[10px] font-semibold tracking-wider">
+                    <span className="text-text-primary text-[9px] sm:text-[10px] font-semibold tracking-wider">
                       {text.visual.est}
                     </span>
                   </div>
@@ -286,7 +286,7 @@ export default function HomePage() {
                         <div className="h-12 w-12 sm:h-14 sm:w-14 rounded-2xl bg-brand/10 border border-brand/30 flex items-center justify-center mb-4 sm:mb-5 group-hover:bg-brand group-hover:scale-105 transition-all duration-300">
                           <Icon className="h-5 w-5 sm:h-6 sm:w-6 text-brand group-hover:text-text-primary transition-colors" strokeWidth={1.5} />
                         </div>
-                        <h3 className="text-white text-lg sm:text-xl font-semibold leading-tight">
+                        <h3 className="text-text-primary text-lg sm:text-xl font-semibold leading-tight">
                           {text.categories[c.key].title}
                         </h3>
                         <p className="text-text-secondary text-xs sm:text-sm mt-2 leading-relaxed">

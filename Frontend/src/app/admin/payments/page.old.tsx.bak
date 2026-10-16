@@ -1,0 +1,399 @@
+'use client';
+import { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useI18n } from '@/lib/i18n';
+import { useAuth } from '@/lib/store';
+import { api } from '@/lib/api';
+import { Badge } from '@/components/ui/Badge';
+import { AdminButton } from '@/components/ui/AdminButton';
+import { formatTsh, formatPhone } from '@/lib/utils';
+import {
+  CreditCardIcon,
+  ArrowPathIcon,
+  InboxIcon,
+  CheckCircleIcon,
+  XCircleIcon,
+  XMarkIcon,
+  ShieldCheckIcon,
+  ClipboardDocumentIcon,
+} from '@heroicons/react/24/outline';
+
+const T = {
+  sw: {
+    title: 'Malipo',
+    subtitle: 'Thibitisha malipo ya Lipa kwa Mixx by Yas',
+    empty: 'Hakuna malipo yanayosubiri',
+    emptyDesc: 'Malipo yataonekana hapa yanapoingia',
+    awaiting: 'Inasubiri Uthibitisho',
+    pending: 'Inasubiri',
+    verify: 'Thibitisha',
+    reject: 'Kataa',
+    txId: 'Namba ya Muamala',
+    txIdHelper: 'Namba hii inapatikana kwenye SMS ya Mixx by Yas',
+    txIdPlaceholder: 'MP123456789',
+    reason: 'Sababu ya Kukataa',
+    reasonHelper: 'Eleza kwa nini malipo haya hayakupokelewa',
+    reasonPlaceholder: 'Mteja hakulipa...',
+    confirm: 'Thibitisha',
+    cancel: 'Ghairi',
+  },
+  en: {
+    title: 'Payments',
+    subtitle: 'Verify Lipa kwa Mixx by Yas payments',
+    empty: 'No pending payments',
+    emptyDesc: 'Payments will appear here when received',
+    awaiting: 'Awaiting Verification',
+    pending: 'Pending',
+    verify: 'Verify',
+    reject: 'Reject',
+    txId: 'Transaction ID',
+    txIdHelper: 'Find this in your Mixx by Yas SMS',
+    txIdPlaceholder: 'MP123456789',
+    reason: 'Rejection Reason',
+    reasonHelper: 'Explain why this payment was not received',
+    reasonPlaceholder: 'Customer did not pay...',
+    confirm: 'Confirm',
+    cancel: 'Cancel',
+  },
+};
+
+export default function PaymentsPage() {
+  const { lang } = useI18n();
+  const { user } = useAuth();
+  const [payments, setPayments] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [modal, setModal] = useState<{ id: string; action: 'verify' | 'reject' } | null>(null);
+  const [txId, setTxId] = useState('');
+  const [reason, setReason] = useState('');
+  const [busy, setBusy] = useState(false);
+
+  const tenantId = user?.tenantId || process.env.NEXT_PUBLIC_TENANT_ID || '';
+  const text = T[lang];
+
+  useEffect(() => { load(); }, [tenantId]);
+
+  async function load() {
+    if (!tenantId) return;
+    setLoading(true);
+    try {
+      const res = await api.get('/payments/manual/pending', { params: { tenantId } });
+      setPayments(res.data || []);
+    } catch (e) { console.error(e); }
+    finally { setLoading(false); }
+  }
+
+  function openModal(id: string, action: 'verify' | 'reject') {
+    setModal({ id, action });
+    setTxId('');
+    setReason('');
+  }
+
+  function closeModal() {
+    setModal(null);
+    setTxId('');
+    setReason('');
+  }
+
+  async function handleSubmit() {
+    if (!modal) return;
+    setBusy(true);
+    try {
+      if (modal.action === 'verify') {
+        await api.post(`/payments/manual/${modal.id}/verify`, { mixxTransactionId: txId.trim() });
+      } else {
+        await api.post(`/payments/manual/${modal.id}/reject`, { reason: reason.trim() });
+      }
+      closeModal();
+      await load();
+    } catch (e) { console.error(e); }
+    finally { setBusy(false); }
+  }
+
+  const canSubmit = modal?.action === 'verify' ? txId.trim().length > 0 : reason.trim().length > 0;
+
+  return (
+    <div className="space-y-5 sm:space-y-6">
+      {/* Header */}
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl text-text-primary">
+            {text.title}
+          </h1>
+          <p className="text-text-secondary mt-1 text-xs sm:text-sm">{text.subtitle}</p>
+        </div>
+        <AdminButton
+          onClick={load}
+          disabled={loading}
+          variant="outline"
+          size="icon"
+          className="self-start sm:self-auto"
+        >
+          <ArrowPathIcon className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
+        </AdminButton>
+      </div>
+
+      {/* List */}
+      {loading ? (
+        <div className="card p-12 text-center">
+          <div className="h-8 w-8 border-2 border-brand border-t-transparent rounded-full animate-spin mx-auto" />
+        </div>
+      ) : payments.length === 0 ? (
+        <div className="card p-8 sm:p-12 text-center">
+          <div className="h-16 w-16 mx-auto rounded-2xl bg-brand/10 border border-brand/30
+                          flex items-center justify-center mb-4">
+            <InboxIcon className="h-8 w-8 text-brand" />
+          </div>
+          <h3 className="text-text-primary text-base sm:text-lg font-semibold">{text.empty}</h3>
+          <p className="text-text-muted text-xs sm:text-sm mt-1">{text.emptyDesc}</p>
+        </div>
+      ) : (
+        <div className="space-y-3 sm:space-y-4">
+          {payments.map((p, i) => (
+            <motion.div
+              key={p.id}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.03 }}
+              className="card p-4 sm:p-5"
+            >
+              {/* Top row */}
+              <div className="flex items-start justify-between gap-3 mb-4">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="h-11 w-11 rounded-xl bg-brand/10 border border-brand/30
+                                  flex items-center justify-center flex-shrink-0">
+                    <CreditCardIcon className="h-5 w-5 text-brand" />
+                  </div>
+                  <div className="min-w-0">
+                    <div className="font-mono text-text-primary font-bold text-sm truncate">
+                      {p.referenceCode}
+                    </div>
+                    <div className="text-text-muted text-[11px] mt-0.5">
+                      {new Date(p.customerConfirmedAt || p.createdAt).toLocaleString(
+                        lang === 'sw' ? 'sw-TZ' : 'en-US',
+                        { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' },
+                      )}
+                    </div>
+                  </div>
+                </div>
+                <Badge color={p.status === 'awaiting_verification' ? 'warning' : 'neutral'}>
+                  {p.status === 'awaiting_verification' ? text.awaiting : text.pending}
+                </Badge>
+              </div>
+
+              {/* Customer + Amount */}
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between
+                              gap-3 py-4 border-y border-border-subtle">
+                <div>
+                  <div className="text-text-primary font-semibold text-sm">{p.customerName}</div>
+                  <div className="text-text-muted text-xs mt-1">
+                    {formatPhone(p.customerPhone)}
+                  </div>
+                </div>
+                <div className="font-display text-2xl sm:text-3xl font-bold text-brand">
+                  {formatTsh(p.amount)}
+                </div>
+              </div>
+
+              {/* Actions — compact, right-aligned */}
+              <div className="mt-4 flex flex-col sm:flex-row gap-2 sm:justify-end">
+                <AdminButton
+                  onClick={() => openModal(p.id, 'verify')}
+                  variant="success"
+                  size="md"
+                  icon={<CheckCircleIcon className="h-4 w-4" />}
+                  className="w-full sm:w-auto"
+                >
+                  {text.verify}
+                </AdminButton>
+                <AdminButton
+                  onClick={() => openModal(p.id, 'reject')}
+                  variant="danger"
+                  size="md"
+                  icon={<XCircleIcon className="h-4 w-4" />}
+                  className="w-full sm:w-auto"
+                >
+                  {text.reject}
+                </AdminButton>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      )}
+
+      {/* ═══════════════════════════════════════════════════
+          MODAL
+         ═══════════════════════════════════════════════════ */}
+      <AnimatePresence>
+        {modal && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={closeModal}
+              className="fixed inset-0 bg-black/75 backdrop-blur-md z-50"
+            />
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.94, y: 24 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.94, y: 24 }}
+                transition={{ type: 'spring', damping: 26, stiffness: 320 }}
+                className="pointer-events-auto w-full max-w-md
+                           bg-bg-elevated rounded-3xl border border-border-subtle
+                           shadow-2xl overflow-hidden max-h-[90vh] flex flex-col"
+              >
+                {/* Header */}
+                <div className="relative flex-shrink-0 px-6 pt-6 pb-5 border-b border-border-subtle">
+                  <div
+                    className={`absolute top-0 left-0 right-0 h-1 ${
+                      modal.action === 'verify'
+                        ? 'bg-gradient-to-r from-brand via-brand-light to-brand'
+                        : 'bg-gradient-to-r from-red-500 via-red-400 to-red-500'
+                    }`}
+                  />
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex items-center gap-3">
+                      <div
+                        className={`h-12 w-12 rounded-2xl flex items-center justify-center flex-shrink-0 ${
+                          modal.action === 'verify'
+                            ? 'bg-brand/15 border border-brand/40'
+                            : 'bg-red-500/15 border border-red-500/40'
+                        }`}
+                      >
+                        {modal.action === 'verify' ? (
+                          <CheckCircleIcon className="h-6 w-6 text-brand" />
+                        ) : (
+                          <XCircleIcon className="h-6 w-6 text-red-500" />
+                        )}
+                      </div>
+                      <div>
+                        <h2 className="font-display text-lg sm:text-xl text-text-primary font-semibold">
+                          {modal.action === 'verify' ? text.verify : text.reject}
+                        </h2>
+                        <p className="text-text-muted text-xs mt-0.5">
+                          {modal.action === 'verify' ? text.txIdHelper : text.reasonHelper}
+                        </p>
+                      </div>
+                    </div>
+                    <button
+                      onClick={closeModal}
+                      className="h-9 w-9 rounded-xl flex items-center justify-center
+                                 text-text-muted hover:text-text-primary
+                                 hover:bg-bg-surface transition flex-shrink-0"
+                    >
+                      <XMarkIcon className="h-5 w-5" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Body */}
+                <div className="flex-1 overflow-y-auto px-6 py-6">
+                  {modal.action === 'verify' ? (
+                    <div>
+                      <label className="block text-xs font-semibold text-text-secondary
+                                        uppercase tracking-wider mb-2">
+                        {text.txId}
+                      </label>
+                      <div className="relative">
+                        <input
+                          type="text"
+                          value={txId}
+                          onChange={(e) => setTxId(e.target.value)}
+                          placeholder={text.txIdPlaceholder}
+                          autoFocus
+                          autoComplete="off"
+                          spellCheck={false}
+                          className="w-full h-14 pl-4 pr-12 rounded-2xl
+                                     bg-bg-surface border-2 border-border-subtle
+                                     text-text-primary font-mono text-lg tracking-wider
+                                     placeholder:text-text-muted/50
+                                     focus:outline-none focus:border-brand
+                                     focus:ring-4 focus:ring-brand/20 transition-all"
+                        />
+                        <button
+                          type="button"
+                          onClick={async () => {
+                            try {
+                              const clip = await navigator.clipboard.readText();
+                              if (clip) setTxId(clip.trim());
+                            } catch {}
+                          }}
+                          className="absolute right-2 top-1/2 -translate-y-1/2
+                                     h-10 w-10 rounded-xl flex items-center justify-center
+                                     text-text-muted hover:text-brand hover:bg-brand/10 transition"
+                        >
+                          <ClipboardDocumentIcon className="h-5 w-5" />
+                        </button>
+                      </div>
+                      <p className="mt-3 text-xs text-text-muted leading-relaxed flex items-start gap-1.5">
+                        <ShieldCheckIcon className="h-3.5 w-3.5 mt-0.5 text-brand flex-shrink-0" />
+                        <span>{text.txIdHelper}</span>
+                      </p>
+                    </div>
+                  ) : (
+                    <div>
+                      <label className="block text-xs font-semibold text-text-secondary
+                                        uppercase tracking-wider mb-2">
+                        {text.reason}
+                      </label>
+                      <textarea
+                        value={reason}
+                        onChange={(e) => setReason(e.target.value)}
+                        placeholder={text.reasonPlaceholder}
+                        rows={4}
+                        autoFocus
+                        className="w-full px-4 py-3 rounded-2xl
+                                   bg-bg-surface border-2 border-border-subtle
+                                   text-text-primary text-base leading-relaxed
+                                   placeholder:text-text-muted/50
+                                   focus:outline-none focus:border-red-500
+                                   focus:ring-4 focus:ring-red-500/20
+                                   transition-all resize-none"
+                      />
+                      <p className="mt-3 text-xs text-text-muted leading-relaxed">
+                        {text.reasonHelper}
+                      </p>
+                    </div>
+                  )}
+                </div>
+
+                {/* Footer */}
+                <div className="flex-shrink-0 px-6 py-4 border-t border-border-subtle bg-bg-base/50
+                                flex flex-col-reverse sm:flex-row sm:justify-end gap-2">
+                  <AdminButton
+                    onClick={closeModal}
+                    variant="outline"
+                    size="md"
+                    className="w-full sm:w-auto"
+                  >
+                    {text.cancel}
+                  </AdminButton>
+                  <AdminButton
+                    onClick={handleSubmit}
+                    variant={modal.action === 'verify' ? 'brand' : 'danger'}
+                    size="md"
+                    loading={busy}
+                    disabled={!canSubmit}
+                    icon={
+                      !busy ? (
+                        modal.action === 'verify' ? (
+                          <CheckCircleIcon className="h-4 w-4" />
+                        ) : (
+                          <XCircleIcon className="h-4 w-4" />
+                        )
+                      ) : undefined
+                    }
+                    className="w-full sm:w-auto"
+                  >
+                    {text.confirm}
+                  </AdminButton>
+                </div>
+              </motion.div>
+            </div>
+          </>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}

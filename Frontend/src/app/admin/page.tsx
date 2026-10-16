@@ -3,45 +3,112 @@ import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useI18n } from '@/lib/i18n';
 import { useAuth } from '@/lib/store';
-import { AdminApi } from '@/lib/api';
+import { AdminApi, api } from '@/lib/api';
 import { Badge } from '@/components/ui/Badge';
-import { formatTsh, formatPhone } from '@/lib/utils';
+import { AdminButton } from '@/components/ui/AdminButton';
+import { formatTsh, formatPhone, cn } from '@/lib/utils';
 import {
-  UsersIcon, ShoppingBagIcon, CreditCardIcon, SparklesIcon,
-  ArrowPathIcon, ClockIcon, CheckCircleIcon, TruckIcon,
-  BanknotesIcon, InboxIcon,
+  UsersIcon,
+  ShoppingBagIcon,
+  CreditCardIcon,
+  SparklesIcon,
+  ArrowPathIcon,
+  BanknotesIcon,
+  InboxIcon,
+  PhotoIcon,
 } from '@heroicons/react/24/outline';
+
+interface FabricProduct {
+  id: string;
+  sku: string;
+  nameSw: string;
+  nameEn: string;
+  price: number;
+  images: string[];
+  stock: number;
+  colors: string[];
+}
+
+interface RecentOrder {
+  id: string;
+  orderNumber: string;
+  status: string;
+  customerName: string;
+  total: number;
+  items: any[];
+  createdAt: string;
+}
 
 const T = {
   sw: {
-    eyebrow: 'Dashibodi', welcome: 'Karibu', subtitle: 'Muhtasari wa sherehe',
-    kpiInvited: 'Walioalikwa', kpiConfirmed: 'Wageni Wamekubali',
-    kpiOrders: 'Oda Zote', kpiRevenue: 'Mapato',
-    confirmedCount: 'wamekubali', pendingCount: 'wanasubiri',
-    paidCount: 'zimelipwa', paymentsCount: 'malipo',
-    uniformsTitle: 'Ufuatiliaji wa Kitambaa', totalCost: 'Jumla ya gharama',
-    ordered: 'Zilizoagizwa', delivered: 'Zilizofikishwa',
-    distributed: 'Zimesambazwa', without: 'Bila Sare',
-    progressLabel: 'Wamepata kitambaa',
-    pendingPaymentsTitle: 'Malipo yanasubiri uthibitisho',
+    eyebrow: 'Dashibodi',
+    welcome: 'Karibu',
+    subtitle: 'Muhtasari wa sherehe',
+    refresh: 'Sasisha',
+    kpiInvited: 'Walioalikwa',
+    kpiConfirmed: 'Wageni Wamekubali',
+    kpiOrders: 'Oda Zote',
+    kpiRevenue: 'Mapato',
+    confirmedCount: 'wamekubali',
+    pendingCount: 'wanasubiri',
+    paidCount: 'zimelipwa',
+    paymentsCount: 'malipo',
+    catalogTitle: 'Vitambaa Vyetu',
+    catalogDesc: 'Bidhaa zinazopatikana kwa waalikwa',
+    price: 'Bei',
+    stock: 'Stoo',
+    recentOrders: 'Oda za Karibuni',
+    recentOrdersDesc: 'Oda zilizowekwa na waalikwa',
+    recentInvites: 'Waalikwa wa Karibuni',
+    pendingPaymentsTitle: 'Malipo yanasubiri uthubitisho',
     pendingPaymentsDesc: 'Una malipo {{count}} yanayohitaji uthibitisho',
-    recentInvites: 'Waalikwa wa Karibuni', recentPayments: 'Malipo ya Karibuni',
-    noInvites: 'Hakuna waalikwa bado', noPayments: 'Hakuna malipo bado',
+    noInvites: 'Hakuna waalikwa bado',
+    noOrders: 'Hakuna oda bado',
+    items: 'bidhaa',
+    statusLabels: {
+      awaiting_payment: 'Inasubiri Malipo',
+      paid: 'Imelipwa',
+      fulfilled: 'Imekamilika',
+      cancelled: 'Imefutwa',
+      pending: 'Inasubiri',
+      confirmed: 'Wamekubali',
+      declined: 'Wamekataa',
+    },
   },
   en: {
-    eyebrow: 'Dashboard', welcome: 'Welcome', subtitle: 'Celebration overview',
-    kpiInvited: 'Invited', kpiConfirmed: 'Confirmed Guests',
-    kpiOrders: 'Total Orders', kpiRevenue: 'Revenue',
-    confirmedCount: 'confirmed', pendingCount: 'pending',
-    paidCount: 'paid', paymentsCount: 'payments',
-    uniformsTitle: 'Fabric Tracking', totalCost: 'Total cost',
-    ordered: 'Ordered', delivered: 'Delivered',
-    distributed: 'Distributed', without: 'Without Fabric',
-    progressLabel: 'Received fabric',
+    eyebrow: 'Dashboard',
+    welcome: 'Welcome',
+    subtitle: 'Celebration overview',
+    refresh: 'Refresh',
+    kpiInvited: 'Invited',
+    kpiConfirmed: 'Confirmed Guests',
+    kpiOrders: 'Total Orders',
+    kpiRevenue: 'Revenue',
+    confirmedCount: 'confirmed',
+    pendingCount: 'pending',
+    paidCount: 'paid',
+    paymentsCount: 'payments',
+    catalogTitle: 'Our Fabrics',
+    catalogDesc: 'Products available to invited guests',
+    price: 'Price',
+    stock: 'Stock',
+    recentOrders: 'Recent Orders',
+    recentOrdersDesc: 'Orders placed by invited guests',
+    recentInvites: 'Recent Invites',
     pendingPaymentsTitle: 'Payments awaiting verification',
     pendingPaymentsDesc: 'You have {{count}} payments needing verification',
-    recentInvites: 'Recent Invites', recentPayments: 'Recent Payments',
-    noInvites: 'No invites yet', noPayments: 'No payments yet',
+    noInvites: 'No invites yet',
+    noOrders: 'No orders yet',
+    items: 'items',
+    statusLabels: {
+      awaiting_payment: 'Awaiting Payment',
+      paid: 'Paid',
+      fulfilled: 'Fulfilled',
+      cancelled: 'Cancelled',
+      pending: 'Pending',
+      confirmed: 'Confirmed',
+      declined: 'Declined',
+    },
   },
 };
 
@@ -49,6 +116,8 @@ export default function AdminDashboard() {
   const { lang } = useI18n();
   const { user } = useAuth();
   const [data, setData] = useState<any>(null);
+  const [products, setProducts] = useState<FabricProduct[]>([]);
+  const [recentOrders, setRecentOrders] = useState<RecentOrder[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
 
@@ -63,14 +132,27 @@ export default function AdminDashboard() {
   async function load() {
     setRefreshing(true);
     try {
-      const res = await AdminApi.analytics(tenantId);
-      setData(res);
+      const [analytics, productsRes, ordersRes] = await Promise.all([
+        AdminApi.analytics(tenantId),
+        api.get('/products', { params: { tenantId, limit: 100 } }),
+        api.get('/orders', { params: { tenantId } }),
+      ]);
+      setData(analytics);
+      setProducts(productsRes.data?.items || []);
+      setRecentOrders((ordersRes.data || []).slice(0, 4));
     } catch (e) {
       console.error(e);
     } finally {
       setLoading(false);
       setRefreshing(false);
     }
+  }
+
+  function getStatusColor(s: string): 'success' | 'error' | 'warning' | 'neutral' {
+    if (s === 'paid' || s === 'fulfilled' || s === 'confirmed') return 'success';
+    if (s === 'cancelled' || s === 'declined') return 'error';
+    if (s === 'awaiting_payment' || s === 'pending') return 'warning';
+    return 'neutral';
   }
 
   if (loading) {
@@ -82,30 +164,39 @@ export default function AdminDashboard() {
   }
 
   const stats = [
-    { Icon: UsersIcon, label: text.kpiInvited,
+    {
+      Icon: UsersIcon,
+      label: text.kpiInvited,
       value: data?.invitations?.total || 0,
-      sub: `${data?.invitations?.confirmed || 0} ${text.confirmedCount}`, color: 'brand' },
-    { Icon: SparklesIcon, label: text.kpiConfirmed,
+      sub: `${data?.invitations?.confirmed || 0} ${text.confirmedCount}`,
+      color: 'brand' as const,
+    },
+    {
+      Icon: SparklesIcon,
+      label: text.kpiConfirmed,
       value: data?.invitations?.confirmedGuests || 0,
-      sub: `${data?.invitations?.pending || 0} ${text.pendingCount}`, color: 'gold' },
-    { Icon: ShoppingBagIcon, label: text.kpiOrders,
+      sub: `${data?.invitations?.pending || 0} ${text.pendingCount}`,
+      color: 'gold' as const,
+    },
+    {
+      Icon: ShoppingBagIcon,
+      label: text.kpiOrders,
       value: data?.orders?.total || 0,
-      sub: `${data?.orders?.paid || 0} ${text.paidCount}`, color: 'brand' },
-    { Icon: BanknotesIcon, label: text.kpiRevenue,
+      sub: `${data?.orders?.paid || 0} ${text.paidCount}`,
+      color: 'brand' as const,
+    },
+    {
+      Icon: BanknotesIcon,
+      label: text.kpiRevenue,
       value: formatTsh(data?.orders?.revenue || 0),
-      sub: `${data?.payments?.successful || 0} ${text.paymentsCount}`, color: 'success' },
-  ];
-
-  const uniformStats = [
-    { label: text.ordered, value: data?.uniforms?.ordered || 0, Icon: ClockIcon },
-    { label: text.delivered, value: data?.uniforms?.delivered || 0, Icon: TruckIcon },
-    { label: text.distributed, value: data?.uniforms?.distributed || 0, Icon: CheckCircleIcon },
-    { label: text.without, value: data?.uniforms?.withoutUniform || 0, Icon: InboxIcon },
+      sub: `${data?.payments?.successful || 0} ${text.paymentsCount}`,
+      color: 'success' as const,
+    },
   ];
 
   return (
     <div className="space-y-5 sm:space-y-6">
-      {/* Header */}
+      {/* ─── Header ─────────────────────────────── */}
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="eyebrow">{text.eyebrow}</p>
@@ -114,28 +205,35 @@ export default function AdminDashboard() {
           </h1>
           <p className="text-text-secondary mt-1 text-xs sm:text-sm">{text.subtitle}</p>
         </div>
-        <button
+        <AdminButton
           onClick={load}
           disabled={refreshing}
-          className="self-start sm:self-auto h-10 w-10 rounded-xl border border-border-subtle
-                     flex items-center justify-center text-text-primary hover:bg-bg-elevated transition"
+          variant="outline"
+          size="icon"
+          className="self-start sm:self-auto"
         >
-          <ArrowPathIcon className={`h-4 w-4 ${refreshing ? 'animate-spin' : ''}`} />
-        </button>
+          <ArrowPathIcon className={cn('h-4 w-4', refreshing && 'animate-spin')} />
+        </AdminButton>
       </div>
 
-      {/* KPIs */}
+      {/* ─── KPI Cards ──────────────────────────── */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
         {stats.map((s, i) => {
           const Icon = s.Icon;
           return (
-            <motion.div key={s.label} initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.05 }} className="card p-3 sm:p-4 lg:p-5">
+            <motion.div
+              key={s.label}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.05 }}
+              className="card p-3 sm:p-4 lg:p-5"
+            >
               <div className="flex items-start justify-between mb-2 gap-2">
-                <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-xl bg-brand/10 border border-brand/30 flex items-center justify-center flex-shrink-0">
+                <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-xl bg-brand/10 border border-brand/30
+                                flex items-center justify-center flex-shrink-0">
                   <Icon className="h-4 w-4 sm:h-5 sm:w-5 text-brand" />
                 </div>
-                <Badge color={s.color as any} className="text-[9px] sm:text-[10px]">{s.sub}</Badge>
+                <Badge color={s.color} className="text-[9px] sm:text-[10px]">{s.sub}</Badge>
               </div>
               <div className="font-display text-xl sm:text-2xl lg:text-3xl font-bold text-text-primary break-all">
                 {s.value}
@@ -146,118 +244,247 @@ export default function AdminDashboard() {
         })}
       </div>
 
-      {/* Uniforms */}
-      <div className="card p-4 sm:p-5">
-        <div className="flex items-center justify-between mb-4">
-          <div>
-            <h2 className="font-display text-base sm:text-lg text-white">{text.uniformsTitle}</h2>
-            <p className="text-text-muted text-[10px] sm:text-xs mt-1">
-              {text.totalCost}: <span className="text-gold font-semibold">
-                {formatTsh(data?.uniforms?.totalCost || 0)}
-              </span>
-            </p>
-          </div>
-        </div>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
-          {uniformStats.map((u) => {
-            const Icon = u.Icon;
-            return (
-              <div key={u.label} className="p-3 rounded-xl bg-bg-surface border border-border-subtle">
-                <div className="flex items-center gap-1.5 mb-1.5">
-                  <Icon className="h-3.5 w-3.5 text-brand" />
-                  <span className="text-[10px] sm:text-xs text-text-muted">{u.label}</span>
-                </div>
-                <div className="font-display text-lg sm:text-xl font-bold text-white">{u.value}</div>
-              </div>
-            );
-          })}
-        </div>
-        {data?.uniforms?.total > 0 && (
-          <div className="mt-4">
-            <div className="flex justify-between text-[10px] sm:text-xs text-text-muted mb-2">
-              <span>{text.progressLabel}</span>
-              <span>{data.uniforms.withUniform} / {data.uniforms.total}</span>
-            </div>
-            <div className="h-2 rounded-full bg-bg-surface overflow-hidden">
-              <motion.div initial={{ width: 0 }}
-                animate={{ width: `${Math.round((data.uniforms.withUniform / Math.max(data.uniforms.total, 1)) * 100)}%` }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="h-full bg-gradient-to-r from-brand to-gold" />
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Pending payments */}
+      {/* ─── Pending Payments Alert ─────────────── */}
       {data?.payments?.pending > 0 && (
-        <div className="card p-4 border-amber-500/40 bg-amber-500/5">
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="card p-4 border-amber-500/40 bg-amber-500/5"
+        >
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center flex-shrink-0">
+            <div className="h-10 w-10 rounded-xl bg-amber-500/20 border border-amber-500/40
+                            flex items-center justify-center flex-shrink-0">
               <CreditCardIcon className="h-5 w-5 text-amber-400" />
             </div>
             <div className="flex-1 min-w-0">
-              <div className="text-white font-semibold text-sm">{text.pendingPaymentsTitle}</div>
-              <div className="text-amber-300 text-xs mt-0.5">
+              <div className="text-text-primary font-semibold text-sm">
+                {text.pendingPaymentsTitle}
+              </div>
+              <div className="text-amber-400 text-xs mt-0.5">
                 {text.pendingPaymentsDesc.replace('{{count}}', String(data.payments.pending))}
               </div>
             </div>
-            <Badge color="warning">{data.payments.pending}</Badge>
+            <AdminButton
+              onClick={() => (window.location.href = '/admin/payments')}
+              variant="warning"
+              size="sm"
+            >
+              {lang === 'sw' ? 'Thibitisha' : 'Verify'}
+            </AdminButton>
           </div>
-        </div>
+        </motion.div>
       )}
 
-      {/* Recent */}
-      <div className="grid lg:grid-cols-2 gap-4 sm:gap-5">
-        <div className="card p-4 sm:p-5">
+      {/* ─── Fabric Catalog ─────────────────────── */}
+      {products.length > 0 && (
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="card p-4 sm:p-5"
+        >
           <div className="flex items-center justify-between mb-4">
-            <h3 className="font-display text-base sm:text-lg text-white">{text.recentInvites}</h3>
-            <Badge color="brand">{data?.recent?.invites?.length || 0}</Badge>
-          </div>
-          {data?.recent?.invites?.length > 0 ? (
-            <div className="space-y-2">
-              {data.recent.invites.map((inv: any) => (
-                <div key={inv.id} className="flex items-center justify-between gap-3 p-3 rounded-xl bg-bg-surface">
-                  <div className="min-w-0">
-                    <div className="text-white text-xs sm:text-sm font-medium truncate">{inv.guestName}</div>
-                    <div className="text-text-muted text-[10px] sm:text-xs">{formatPhone(inv.guestPhone)}</div>
-                  </div>
-                  <Badge color={inv.status === 'confirmed' ? 'success' : inv.status === 'declined' ? 'error' : 'warning'}>
-                    {inv.status}
-                  </Badge>
-                </div>
-              ))}
+            <div>
+              <h2 className="font-display text-base sm:text-lg text-text-primary">
+                {text.catalogTitle}
+              </h2>
+              <p className="text-text-muted text-xs mt-0.5">{text.catalogDesc}</p>
             </div>
-          ) : (
-            <div className="text-center py-6 text-text-muted text-xs">{text.noInvites}</div>
-          )}
-        </div>
-
-        <div className="card p-4 sm:p-5">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="font-display text-base sm:text-lg text-white">{text.recentPayments}</h3>
-            <Badge color="gold">{data?.recent?.payments?.length || 0}</Badge>
+            <Badge color="brand">{products.length}</Badge>
           </div>
-          {data?.recent?.payments?.length > 0 ? (
-            <div className="space-y-2">
-              {data.recent.payments.map((p: any) => (
-                <div key={p.id} className="flex items-center justify-between gap-3 p-3 rounded-xl bg-bg-surface">
-                  <div className="min-w-0">
-                    <div className="text-white text-[11px] sm:text-sm font-mono truncate">{p.referenceCode}</div>
-                    <div className="text-text-muted text-[10px] sm:text-xs truncate">
-                      {p.customerName} · {formatTsh(p.amount)}
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {products.map((p) => {
+              const name = lang === 'sw' ? p.nameSw : p.nameEn;
+              const image = p.images?.[0] || '/fabric.jpg';
+              const color = p.colors?.[0] || '';
+
+              return (
+                <div
+                  key={p.id}
+                  className="flex gap-3 p-3 rounded-2xl bg-bg-surface border border-border-subtle
+                             hover:border-brand/40 transition"
+                >
+                  {/* Image */}
+                  <div className="h-20 w-20 sm:h-24 sm:w-24 rounded-xl overflow-hidden
+                                  bg-bg-elevated flex-shrink-0
+                                  flex items-center justify-center">
+                    {image ? (
+                      <img
+                        src={image}
+                        alt={name}
+                        className="w-full h-full object-contain p-1.5"
+                      />
+                    ) : (
+                      <PhotoIcon className="h-8 w-8 text-text-muted" />
+                    )}
+                  </div>
+
+                  {/* Info */}
+                  <div className="flex-1 min-w-0 flex flex-col justify-between">
+                    <div>
+                      <div className="text-text-primary font-semibold text-sm leading-tight">
+                        {name}
+                      </div>
+                      {color && (
+                        <div className="text-text-muted text-xs mt-1">{color}</div>
+                      )}
+                    </div>
+
+                    <div className="flex items-end justify-between gap-2 mt-2">
+                      <div>
+                        <div className="text-[10px] uppercase tracking-wider text-text-muted">
+                          {text.price}
+                        </div>
+                        <div className="text-brand font-bold text-base sm:text-lg">
+                          {formatTsh(p.price)}
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-[10px] uppercase tracking-wider text-text-muted">
+                          {text.stock}
+                        </div>
+                        <div
+                          className={cn(
+                            'text-sm font-bold',
+                            p.stock > 10 ? 'text-emerald-500' :
+                            p.stock > 0 ? 'text-amber-500' : 'text-red-500',
+                          )}
+                        >
+                          {p.stock}
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <Badge color={p.status === 'success' ? 'success' : p.status === 'awaiting_verification' ? 'warning' : 'neutral'}>
-                    {p.status.replace(/_/g, ' ')}
-                  </Badge>
                 </div>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-6 text-text-muted text-xs">{text.noPayments}</div>
-          )}
+              );
+            })}
+          </div>
+        </motion.div>
+      )}
+
+      {/* ─── Recent Orders ──────────────────────── */}
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="card p-4 sm:p-5"
+      >
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <h2 className="font-display text-base sm:text-lg text-text-primary">
+              {text.recentOrders}
+            </h2>
+            <p className="text-text-muted text-xs mt-0.5">{text.recentOrdersDesc}</p>
+          </div>
+          <Badge color="brand">{recentOrders.length}</Badge>
         </div>
-      </div>
+
+        {recentOrders.length > 0 ? (
+          <div className="space-y-3">
+            {recentOrders.map((o) => {
+              const itemCount = o.items?.length || 0;
+              const firstItem = o.items?.[0];
+
+              return (
+                <div
+                  key={o.id}
+                  className="flex flex-col sm:flex-row gap-3 p-3 rounded-xl
+                             bg-bg-surface border border-border-subtle
+                             hover:border-brand/40 transition"
+                >
+                  {/* Fabric preview */}
+                  <div className="h-14 w-14 rounded-xl bg-bg-elevated border border-border-subtle
+                                  flex-shrink-0 flex items-center justify-center overflow-hidden">
+                    <img
+                      src={firstItem?.imageUrl || '/fabric.jpg'}
+                      alt={firstItem?.productName || 'Fabric'}
+                      className="w-full h-full object-contain p-1"
+                    />
+                  </div>
+
+                  {/* Order info */}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-start justify-between gap-2 flex-wrap">
+                      <div className="min-w-0">
+                        <div className="font-mono text-text-primary font-bold text-xs sm:text-sm">
+                          {o.orderNumber}
+                        </div>
+                        <div className="text-text-muted text-[11px] mt-0.5 truncate">
+                          {o.customerName} · {itemCount} {text.items}
+                        </div>
+                      </div>
+                      <Badge color={getStatusColor(o.status)}>
+                        {text.statusLabels[o.status as keyof typeof text.statusLabels] || o.status}
+                      </Badge>
+                    </div>
+                  </div>
+
+                  {/* Amount */}
+                  <div className="font-display text-base sm:text-lg font-bold text-brand
+                                  flex-shrink-0 self-start sm:self-center">
+                    {formatTsh(o.total)}
+                  </div>
+                </div>
+              );
+            })}
+
+            <AdminButton
+              onClick={() => (window.location.href = '/admin/orders')}
+              variant="outline"
+              size="sm"
+              className="w-full mt-2"
+            >
+              {lang === 'sw' ? 'Ona Oda Zote' : 'View All Orders'}
+            </AdminButton>
+          </div>
+        ) : (
+          <div className="text-center py-8">
+            <div className="h-14 w-14 mx-auto rounded-2xl bg-brand/10 border border-brand/30
+                            flex items-center justify-center mb-3">
+              <InboxIcon className="h-7 w-7 text-brand" />
+            </div>
+            <div className="text-text-muted text-xs sm:text-sm">{text.noOrders}</div>
+          </div>
+        )}
+      </motion.div>
+
+      {/* ─── Recent Invites ─────────────────────── */}
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="card p-4 sm:p-5"
+      >
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="font-display text-base sm:text-lg text-text-primary">
+            {text.recentInvites}
+          </h2>
+          <Badge color="brand">{data?.recent?.invites?.length || 0}</Badge>
+        </div>
+
+        {data?.recent?.invites?.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            {data.recent.invites.map((inv: any) => (
+              <div
+                key={inv.id}
+                className="flex items-center justify-between gap-3 p-3 rounded-xl bg-bg-surface"
+              >
+                <div className="min-w-0">
+                  <div className="text-text-primary text-xs sm:text-sm font-medium truncate">
+                    {inv.guestName}
+                  </div>
+                  <div className="text-text-muted text-[10px] sm:text-xs">
+                    {formatPhone(inv.guestPhone)}
+                  </div>
+                </div>
+                <Badge color={getStatusColor(inv.status)}>
+                  {text.statusLabels[inv.status as keyof typeof text.statusLabels] || inv.status}
+                </Badge>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-6 text-text-muted text-xs">{text.noInvites}</div>
+        )}
+      </motion.div>
     </div>
   );
 }

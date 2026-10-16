@@ -53,7 +53,7 @@ export default function ContactPage() {
                   </div>
                   <div className="min-w-0">
                     <div className="text-xs text-text-muted uppercase tracking-wider">{c.title}</div>
-                    <div className="text-white font-semibold mt-1">{c.content}</div>
+                    <div className="text-text-primary font-semibold mt-1">{c.content}</div>
                   </div>
                 </Wrap>
               );

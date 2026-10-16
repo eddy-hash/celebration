@@ -8,10 +8,26 @@ import { Badge } from '@/components/ui/Badge';
 import { Input } from '@/components/ui/Input';
 import { formatPhone, whatsappLink } from '@/lib/utils';
 import {
-  PlusIcon, MagnifyingGlassIcon, ChatBubbleLeftRightIcon,
-  ClipboardDocumentIcon, TrashIcon, CheckCircleIcon,
-  XMarkIcon, ArrowPathIcon, UserGroupIcon,
+  PlusIcon,
+  MagnifyingGlassIcon,
+  ChatBubbleLeftRightIcon,
+  ClipboardDocumentIcon,
+  TrashIcon,
+  CheckCircleIcon,
+  CheckIcon,
+  NoSymbolIcon,
+  PrinterIcon,
+  DocumentArrowDownIcon,
+  XMarkIcon,
+  ArrowPathIcon,
+  UserGroupIcon,
 } from '@heroicons/react/24/outline';
+import {
+  generateInvitationCardsPdf,
+  generateInvitesTablePdf,
+  generateSingleCardPdf,
+  type InvitePdfData,
+} from '@/lib/pdf/invitationPdf';
 
 type Invite = {
   id: string; guestName: string; guestPhone: string;
@@ -56,6 +72,9 @@ export default function InvitesPage() {
   const [form, setForm] = useState({ guestName: '', guestPhone: '', guestCount: 1 });
   const [error, setError] = useState('');
   const [copied, setCopied] = useState<string | null>(null);
+  const [showPdfModal, setShowPdfModal] = useState(false);
+  const [pdfFilter, setPdfFilter] = useState<'all' | 'confirmed' | 'pending'>('all');
+  const [pdfLoading, setPdfLoading] = useState(false);
 
   const tenantId = user?.tenantId || process.env.NEXT_PUBLIC_TENANT_ID || '';
   const text = T[lang];
@@ -128,6 +147,102 @@ export default function InvitesPage() {
     pending: invites.filter(i => i.status === 'pending').length,
   };
 
+  function getFilteredForPdf() {
+    if (pdfFilter === 'all') return filtered;
+    return filtered.filter((i) => i.status === pdfFilter);
+  }
+
+  // ─── Update guest status ───
+  async function handleUpdateStatus(
+    invId: string,
+    newStatus: 'pending' | 'confirmed' | 'declined',
+  ) {
+    try {
+      await api.patch(`/invitations/${invId}/status`, { status: newStatus });
+      await load();
+    } catch (e) {
+      console.error('Failed to update status:', e);
+    }
+  }
+
+  // ─── Print single guest card PDF ───
+  function handlePrintOne(inv: Invite) {
+    generateSingleCardPdf(
+      {
+        id: inv.id,
+        guestName: inv.guestName,
+        guestPhone: inv.guestPhone,
+        guestCount: inv.guestCount,
+        status: inv.status,
+        inviteCode: inv.inviteCode,
+        createdAt: inv.createdAt,
+      },
+      {
+        locale: lang,
+        celebrant: 'Erick Edsoni',
+        date: lang === 'sw' ? 'Jumamosi, 08 Novemba 2026' : 'Saturday, 08 November 2026',
+        hostName: lang === 'sw' ? 'Familia ya Edsoni' : 'The Edsoni Family',
+      },
+    );
+  }
+
+  // ─── Get filtered list for PDF ───
+  function getFilteredForPdf() {
+    if (pdfFilter === 'all') return filtered;
+    return filtered.filter((i) => i.status === pdfFilter);
+  }
+
+  function handleExportCards() {
+    const list = getFilteredForPdf();
+    if (list.length === 0) return;
+    setPdfLoading(true);
+    try {
+      const pdfData: InvitePdfData[] = list.map((inv) => ({
+        id: inv.id,
+        guestName: inv.guestName,
+        guestPhone: inv.guestPhone,
+        guestCount: inv.guestCount,
+        status: inv.status,
+        inviteCode: inv.inviteCode,
+        createdAt: inv.createdAt,
+      }));
+      generateInvitationCardsPdf(pdfData, {
+        locale: lang,
+        celebrant: 'Erick Edsoni',
+        date: lang === 'sw' ? 'Jumamosi, 08 Novemba 2026' : 'Saturday, 08 November 2026',
+        hostName: lang === 'sw' ? 'Familia ya Edsoni' : 'The Edsoni Family',
+      });
+    } finally {
+      setPdfLoading(false);
+      setShowPdfModal(false);
+    }
+  }
+
+  function handleExportTable() {
+    const list = getFilteredForPdf();
+    if (list.length === 0) return;
+    setPdfLoading(true);
+    try {
+      const pdfData: InvitePdfData[] = list.map((inv) => ({
+        id: inv.id,
+        guestName: inv.guestName,
+        guestPhone: inv.guestPhone,
+        guestCount: inv.guestCount,
+        status: inv.status,
+        inviteCode: inv.inviteCode,
+        createdAt: inv.createdAt,
+      }));
+      generateInvitesTablePdf(pdfData, {
+        locale: lang,
+        celebrant: 'Erick Edsoni',
+        date: lang === 'sw' ? '08 Novemba 2026' : '08 November 2026',
+      });
+    } finally {
+      setPdfLoading(false);
+      setShowPdfModal(false);
+    }
+  }
+
   return (
     <div className="space-y-5 lg:space-y-6">
       {/* Header */}
@@ -146,6 +261,15 @@ export default function InvitesPage() {
           >
             <ArrowPathIcon className="h-4 w-4" />
           </button>
+          <button
+              onClick={() => setShowPdfModal(true)}
+              className="flex-shrink-0 h-10 w-10 rounded-xl border border-gold/40 bg-gold/10
+                         flex items-center justify-center text-gold hover:bg-gold/20 transition"
+              title={lang === 'sw' ? 'Pakua PDF' : 'Download PDF'}
+            >
+              <PrinterIcon className="h-4 w-4" />
+            </button>
+            
           <button
             onClick={() => setShowCreate(true)}
             className="flex-1 sm:flex-none h-10 px-4 rounded-xl bg-brand text-text-primary font-semibold text-sm
@@ -176,7 +300,7 @@ export default function InvitesPage() {
       {invites.length > 0 && (
         <div className="grid grid-cols-3 gap-2 sm:gap-3">
           <div className="card p-3 sm:p-4 text-center">
-            <div className="font-display text-xl sm:text-2xl font-bold text-white">{counts.total}</div>
+            <div className="font-display text-xl sm:text-2xl font-bold text-text-primary">{counts.total}</div>
             <div className="text-[10px] sm:text-xs text-text-muted mt-0.5 uppercase tracking-wider">
               {text.total}
             </div>
@@ -212,17 +336,16 @@ export default function InvitesPage() {
               className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4"
             >
               <div
-                className="w-full sm:max-w-md bg-bg-elevated rounded-t-3xl sm:rounded-2xl border-t sm:border border-border-subtle
-                           max-h-[90svh] flex flex-col shadow-2xl"
+                className="w-full max-w-md bg-bg-elevated rounded-2xl border border-border-subtle shadow-2xl max-h-[90vh] overflow-y-auto"
               >
                 {/* Header — pinned */}
                 <div className="flex items-center justify-between px-5 py-4 border-b border-border-subtle flex-shrink-0">
-                  <h2 className="font-display text-lg sm:text-xl text-white">{text.add}</h2>
+                  <h2 className="font-display text-lg sm:text-xl text-text-primary">{text.add}</h2>
                   <button
                     onClick={() => { setShowCreate(false); setError(''); }}
                     className="p-2 -mr-2 rounded-lg hover:bg-bg-surface"
                   >
-                    <XMarkIcon className="h-5 w-5 text-white" />
+                    <XMarkIcon className="h-5 w-5 text-text-primary" />
                   </button>
                 </div>
 
@@ -288,6 +411,126 @@ export default function InvitesPage() {
         )}
       </AnimatePresence>
 
+      {/* PDF Export Modal */}
+      <AnimatePresence>
+        {showPdfModal && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowPdfModal(false)}
+              className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50"
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            >
+              <div
+                className="w-full max-w-md bg-bg-elevated rounded-2xl
+                           border border-border-subtle p-5 shadow-2xl
+                           max-h-[90vh] overflow-y-auto"
+              >
+              <div className="flex items-center justify-between mb-5">
+                <div className="flex items-center gap-2">
+                  <PrinterIcon className="h-5 w-5 text-gold" />
+                  <h2 className="font-display text-lg text-text-primary">
+                    {lang === 'sw' ? 'Pakua PDF' : 'Download PDF'}
+                  </h2>
+                </div>
+                <button
+                  onClick={() => setShowPdfModal(false)}
+                  className="p-2 -mr-2 rounded-lg hover:bg-bg-surface"
+                >
+                  <XMarkIcon className="h-5 w-5 text-text-primary" />
+                </button>
+              </div>
+
+              <p className="text-text-secondary text-xs mb-4">
+                {lang === 'sw'
+                  ? 'Chagua waalikwa na muundo wa PDF:'
+                  : 'Choose invites and PDF format:'}
+              </p>
+
+              {/* Filter selection */}
+              <div className="space-y-3 mb-5">
+                {(['all', 'confirmed', 'pending'] as const).map((f) => {
+                  const count =
+                    f === 'all'
+                      ? filtered.length
+                      : filtered.filter((i) => i.status === f).length;
+                  const label =
+                    f === 'all'
+                      ? lang === 'sw' ? 'Waalikwa Wote' : 'All Invites'
+                      : f === 'confirmed'
+                        ? lang === 'sw' ? 'Waliokubali' : 'Confirmed'
+                        : lang === 'sw' ? 'Wanasubiri' : 'Pending';
+
+                  return (
+                    <button
+                      key={f}
+                      type="button"
+                      onClick={() => setPdfFilter(f)}
+                      className={`w-full flex items-center justify-between gap-3 px-4 py-3 rounded-xl
+                                 border transition-all ${
+                        pdfFilter === f
+                          ? 'border-brand bg-brand/10'
+                          : 'border-border-subtle hover:bg-bg-surface'
+                      }`}
+                    >
+                      <span className="text-text-primary text-sm font-medium">{label}</span>
+                      <span className="text-text-muted text-xs">{count}</span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Format buttons */}
+              <div className="space-y-2">
+                <button
+                  type="button"
+                  onClick={handleExportCards}
+                  disabled={pdfLoading || getFilteredForPdf().length === 0}
+                  className="w-full flex items-center justify-center gap-2 h-12 rounded-xl
+                             bg-brand text-white font-semibold text-sm
+                             hover:bg-brand-dark disabled:opacity-50 transition"
+                >
+                  {pdfLoading ? (
+                    <span className="h-4 w-4 border-2 border-white/40 border-t-white rounded-full animate-spin" />
+                  ) : (
+                    <>
+                      <PrinterIcon className="h-4 w-4" />
+                      {lang === 'sw' ? 'Kadi za Mwaliko (moja/mmoja)' : 'Invitation Cards (1/page)'}
+                    </>
+                  )}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleExportTable}
+                  disabled={pdfLoading || getFilteredForPdf().length === 0}
+                  className="w-full flex items-center justify-center gap-2 h-12 rounded-xl
+                             border border-gold/40 bg-gold/10 text-gold font-semibold text-sm
+                             hover:bg-gold/20 disabled:opacity-50 transition"
+                >
+                  <DocumentArrowDownIcon className="h-4 w-4" />
+                  {lang === 'sw' ? 'Orodha ya Waalikwa (meza)' : 'Guest List (table)'}
+                </button>
+              </div>
+
+              <p className="text-[10px] text-text-muted text-center mt-4">
+                {lang === 'sw'
+                  ? `${getFilteredForPdf().length} waalikwa watajumuishwa`
+                  : `${getFilteredForPdf().length} invites will be included`}
+              </p>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
       {/* List */}
       {loading ? (
         <div className="card p-12 text-center">
@@ -296,7 +539,7 @@ export default function InvitesPage() {
       ) : filtered.length === 0 ? (
         <div className="card p-8 sm:p-12 text-center">
           <UserGroupIcon className="h-12 w-12 text-text-muted mx-auto mb-4" />
-          <h3 className="text-white text-base sm:text-lg font-semibold">{text.empty}</h3>
+          <h3 className="text-text-primary text-base sm:text-lg font-semibold">{text.empty}</h3>
           <p className="text-text-muted text-xs sm:text-sm mt-1">{text.emptyDesc}</p>
           <button
             onClick={() => setShowCreate(true)}
@@ -319,7 +562,7 @@ export default function InvitesPage() {
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-white font-semibold text-sm sm:text-base truncate">
+                    <span className="text-text-primary font-semibold text-sm sm:text-base truncate">
                       {inv.guestName}
                     </span>
                     <Badge color={statusColor(inv.status)}>{statusLabel(inv.status)}</Badge>
@@ -348,23 +591,75 @@ export default function InvitesPage() {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2 sm:flex-shrink-0">
+                <div className="flex items-center gap-1.5 sm:gap-2 sm:flex-shrink-0 flex-wrap">
+                  {/* ✅ Confirm — ICON ONLY */}
+                  {inv.status !== 'confirmed' && (
+                    <button
+                      onClick={() => handleUpdateStatus(inv.id, 'confirmed')}
+                      className="h-9 w-9 rounded-lg bg-emerald-500/15 border border-emerald-500/40
+                                 hover:bg-emerald-500/25 transition flex items-center justify-center"
+                      title={text.btnConfirm}
+                    >
+                      <CheckIcon className="h-4 w-4 text-emerald-500" />
+                    </button>
+                  )}
+
+                  {/* 🔄 Pending — ICON ONLY */}
+                  {inv.status !== 'pending' && (
+                    <button
+                      onClick={() => handleUpdateStatus(inv.id, 'pending')}
+                      className="h-9 w-9 rounded-lg bg-amber-500/15 border border-amber-500/40
+                                 hover:bg-amber-500/25 transition flex items-center justify-center"
+                      title={text.btnPending}
+                    >
+                      <ArrowPathIcon className="h-4 w-4 text-amber-500" />
+                    </button>
+                  )}
+
+                  {/* ❌ Decline — ICON ONLY */}
+                  {inv.status !== 'declined' && (
+                    <button
+                      onClick={() => handleUpdateStatus(inv.id, 'declined')}
+                      className="h-9 w-9 rounded-lg bg-red-500/15 border border-red-500/40
+                                 hover:bg-red-500/25 transition flex items-center justify-center"
+                      title={text.btnDecline}
+                    >
+                      <NoSymbolIcon className="h-4 w-4 text-red-500" />
+                    </button>
+                  )}
+
+                  {/* 🖨️ Print — ICON + WORD */}
+                  <button
+                    onClick={() => handlePrintOne(inv)}
+                    className="h-9 px-3 rounded-lg bg-gold/15 border border-gold/40
+                               hover:bg-gold/25 transition flex items-center gap-1.5
+                               text-gold text-xs font-bold"
+                    title={text.btnPrint}
+                  >
+                    <PrinterIcon className="h-3.5 w-3.5" />
+                    <span className="hidden sm:inline">{text.btnPrint}</span>
+                  </button>
+
+                  {/* 💬 WhatsApp — ICON + WORD */}
                   <a
                     href={whatsappLink(inv.guestPhone, text.shareMsg(inv.guestName, inv.inviteCode))}
                     target="_blank"
                     rel="noopener"
-                    className="flex-1 sm:flex-none h-10 px-4 rounded-xl bg-[#25D366] text-white
-                               text-sm font-semibold hover:brightness-110 transition
-                               flex items-center justify-center gap-2"
+                    className="h-9 px-3 rounded-lg bg-[#25D366] text-white
+                               text-xs font-bold hover:brightness-110 transition
+                               flex items-center justify-center gap-1.5"
                   >
-                    <ChatBubbleLeftRightIcon className="h-4 w-4" />
-                    <span>WhatsApp</span>
+                    <ChatBubbleLeftRightIcon className="h-3.5 w-3.5" />
+                    <span className="hidden sm:inline">WhatsApp</span>
                   </a>
+
+                  {/* 🗑️ Delete — ICON ONLY */}
                   <button
                     onClick={() => handleDelete(inv.id)}
-                    className="h-10 w-10 rounded-xl bg-bg-surface hover:bg-red-500/20 transition
+                    className="h-9 w-9 rounded-lg bg-bg-surface border border-border-subtle
+                               hover:bg-red-500/15 hover:border-red-500/40 transition
                                flex items-center justify-center flex-shrink-0"
-                    title={text.delete}
+                    title={text.btnDelete}
                   >
                     <TrashIcon className="h-4 w-4 text-red-400" />
                   </button>

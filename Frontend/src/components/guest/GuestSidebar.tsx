@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 import {
   HomeIcon, SparklesIcon, ShoppingBagIcon, InboxIcon,
   ChatBubbleLeftRightIcon, ArrowRightOnRectangleIcon,
-  Bars3Icon, XMarkIcon,
+  Bars3Icon, XMarkIcon, IdentificationIcon,
 } from '@heroicons/react/24/outline';
 
 type Lang = 'sw' | 'en';
@@ -15,6 +15,7 @@ type Lang = 'sw' | 'en';
 const NAV = {
   sw: [
     { href: '/', label: 'Nyumbani', Icon: HomeIcon },
+    { href: '/mwaliko-wangu', label: 'Mwaliko Wangu', Icon: IdentificationIcon },
     { href: '/kitambaa', label: 'Kitambaa', Icon: SparklesIcon },
     { href: '/kikapu', label: 'Kikapu', Icon: ShoppingBagIcon },
     { href: '/oda-yangu', label: 'Oda Yangu', Icon: InboxIcon },
@@ -22,6 +23,7 @@ const NAV = {
   ],
   en: [
     { href: '/', label: 'Home', Icon: HomeIcon },
+    { href: '/mwaliko-wangu', label: 'My Invitation', Icon: IdentificationIcon },
     { href: '/kitambaa', label: 'Fabrics', Icon: SparklesIcon },
     { href: '/kikapu', label: 'Cart', Icon: ShoppingBagIcon },
     { href: '/oda-yangu', label: 'My Order', Icon: InboxIcon },

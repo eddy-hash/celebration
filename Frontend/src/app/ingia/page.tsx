@@ -113,7 +113,7 @@ function LoginForm() {
           <svg viewBox="0 0 24 24" className="h-5 w-5 text-brand" fill="currentColor">
             <path d="M10 2h4v4h4v4h-4v12h-4V10H6V6h4V2z" />
           </svg>
-          <span className="font-display text-sm font-bold text-white">Mama Dani</span>
+          <span className="font-display text-sm font-bold text-text-primary">Mama Dani</span>
         </Link>
         <LanguageSwitch />
       </header>
@@ -204,7 +204,7 @@ function LoginForm() {
             <button
               type="submit"
               disabled={loading || !phone || !code}
-              className="w-full h-12 mt-2 rounded-xl bg-brand text-text-primary font-semibold text-base
+              className="w-full h-12 mt-2 rounded-xl bg-brand text-white font-semibold text-base
                          shadow-button hover:bg-brand-dark active:scale-[0.98]
                          disabled:opacity-40 disabled:cursor-not-allowed
                          transition-all flex items-center justify-center gap-2"

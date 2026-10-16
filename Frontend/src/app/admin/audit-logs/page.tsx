@@ -95,7 +95,7 @@ export default function AuditLogsPage() {
     <div className="space-y-5">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl text-white">{text.title}</h1>
+          <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl text-text-primary">{text.title}</h1>
           <p className="text-text-secondary mt-1 text-xs sm:text-sm">{text.subtitle}</p>
         </div>
         <button
@@ -112,7 +112,7 @@ export default function AuditLogsPage() {
         <div className="grid grid-cols-2 gap-2 sm:gap-3">
           <div className="card p-3 sm:p-4">
             <DocumentTextIcon className="h-4 w-4 text-brand mb-2" />
-            <div className="font-display text-lg sm:text-2xl font-bold text-white">
+            <div className="font-display text-lg sm:text-2xl font-bold text-text-primary">
               {stats.total || 0}
             </div>
             <div className="text-[10px] sm:text-xs text-text-muted mt-0.5 uppercase tracking-wider">
@@ -121,7 +121,7 @@ export default function AuditLogsPage() {
           </div>
           <div className="card p-3 sm:p-4">
             <ClockIcon className="h-4 w-4 text-gold mb-2" />
-            <div className="font-display text-lg sm:text-2xl font-bold text-white">
+            <div className="font-display text-lg sm:text-2xl font-bold text-text-primary">
               {stats.todayCount || 0}
             </div>
             <div className="text-[10px] sm:text-xs text-text-muted mt-0.5 uppercase tracking-wider">
@@ -188,7 +188,7 @@ export default function AuditLogsPage() {
       ) : logs.length === 0 ? (
         <div className="card p-8 sm:p-12 text-center">
           <InboxIcon className="h-12 w-12 text-text-muted mx-auto mb-4" />
-          <h3 className="text-white text-base sm:text-lg font-semibold">{text.empty}</h3>
+          <h3 className="text-text-primary text-base sm:text-lg font-semibold">{text.empty}</h3>
           <p className="text-text-muted text-xs sm:text-sm mt-1">{text.emptyDesc}</p>
         </div>
       ) : (
@@ -211,7 +211,7 @@ export default function AuditLogsPage() {
                   ? <ShieldCheckIcon className="h-4 w-4 text-gold flex-shrink-0" />
                   : <UserCircleIcon className="h-4 w-4 text-brand flex-shrink-0" />
                 }
-                <span className="text-white text-xs sm:text-sm font-medium truncate">
+                <span className="text-text-primary text-xs sm:text-sm font-medium truncate">
                   {log.actorName || '—'}
                 </span>
               </div>

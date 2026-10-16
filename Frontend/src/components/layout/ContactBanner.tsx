@@ -33,10 +33,10 @@ export function ContactBanner() {
               transition={{ delay: 0.2, type: 'spring' }}
               className="hidden sm:flex h-16 w-16 items-center justify-center rounded-2xl bg-white/15 backdrop-blur"
             >
-              <GiftIcon className="h-8 w-8 text-text-primary" />
+              <GiftIcon className="h-8 w-8 text-white" />
             </motion.div>
             <div>
-              <h3 className="font-display text-3xl sm:text-4xl text-text-primary">{t('contact.title')}</h3>
+              <h3 className="font-display text-3xl sm:text-4xl text-white">{t('contact.title')}</h3>
               <p className="mt-2 text-white/85 max-w-md">{t('contact.desc')}</p>
             </div>
           </div>
@@ -53,14 +53,14 @@ export function ContactBanner() {
             </a>
             <a
               href={telLink(p1)}
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-white/15 backdrop-blur text-text-primary font-semibold border border-white/30 hover:bg-white/25 transition"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-white/15 backdrop-blur text-white font-semibold border border-white/30 hover:bg-white/25 transition"
             >
               <PhoneIcon className="h-5 w-5" />
               {formatPhone(p1)}
             </a>
             <a
               href={telLink(p2)}
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-white/15 backdrop-blur text-text-primary font-semibold border border-white/30 hover:bg-white/25 transition"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-white/15 backdrop-blur text-white font-semibold border border-white/30 hover:bg-white/25 transition"
             >
               <PhoneIcon className="h-5 w-5" />
               {formatPhone(p2)}

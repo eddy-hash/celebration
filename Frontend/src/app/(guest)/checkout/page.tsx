@@ -14,7 +14,9 @@ import { CheckCircleIcon, ShieldCheckIcon } from '@heroicons/react/24/outline';
 const T = {
   sw: {
     celebration: 'Sherehe ya Ubatizo',
-    celebrant: 'EDGAR EDSONI',
+    celebrant: 'ERICK EDSONI',
+    accountant: 'EDGAR EDSONI',
+    accountantLabel: 'Mhasibu',
     title: 'Kamilisha Oda',
     info: 'Taarifa Zako',
     name: 'Jina Kamili',
@@ -40,7 +42,9 @@ const T = {
   },
   en: {
     celebration: 'Baptism Celebration',
-    celebrant: 'EDGAR EDSONI',
+    celebrant: 'ERICK EDSONI',
+    accountant: 'EDGAR EDSONI',
+    accountantLabel: 'Accountant',
     title: 'Complete Order',
     info: 'Your Information',
     name: 'Full Name',
@@ -84,13 +88,26 @@ export default function CheckoutPage() {
   const businessNumber = tenant?.mixxBusinessNumber || '15714656';
 
   useEffect(() => {
-    if (!isLoggedIn()) router.push('/ingia');
+    if (!isLoggedIn()) {
+      router.push('/ingia');
+      return;
+    }
     if (user) {
       setName(user.name);
       setPhone(user.phone);
     }
-    if (items.length === 0) router.push('/kikapu');
-  }, [router, isLoggedIn, user, items.length]);
+
+    // Only redirect if the cart is TRULY empty after a delay
+    // (handles the case where we just added items in oda-yangu)
+    const timer = setTimeout(() => {
+      const cart = useCart.getState();
+      if (cart.items.length === 0) {
+        router.push('/kikapu');
+      }
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [router, isLoggedIn, user]);
 
   const subtotal = total();
 
@@ -175,7 +192,7 @@ export default function CheckoutPage() {
 
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="text-white font-bold text-sm sm:text-base">
+                  <span className="text-text-primary font-bold text-sm sm:text-base">
                     {text.payWithMixx}
                   </span>
                   <Badge color="brand" className="text-[10px]">{text.recommended}</Badge>
@@ -216,12 +233,22 @@ export default function CheckoutPage() {
           animate={{ opacity: 1, y: 0 }}
           className="lg:sticky lg:top-24 h-fit card p-4 sm:p-5"
         >
-          <div className="mb-4 pb-4 border-b border-border-subtle">
-            <div className="text-[10px] uppercase tracking-[0.2em] text-gold/80 mb-1">
-              {text.celebration}
+          <div className="mb-4 pb-4 border-b border-border-subtle space-y-2">
+            <div>
+              <div className="text-[10px] uppercase tracking-[0.2em] text-gold/80 mb-1">
+                {text.celebration}
+              </div>
+              <div className="font-display text-base sm:text-lg text-text-primary font-bold tracking-wide">
+                {text.celebrant}
+              </div>
             </div>
-            <div className="font-display text-base sm:text-lg text-text-primary font-bold tracking-wide">
-              {text.celebrant}
+            <div className="pt-2 border-t border-border-subtle">
+              <div className="text-[10px] uppercase tracking-[0.2em] text-text-muted mb-1">
+                {text.accountantLabel}
+              </div>
+              <div className="text-sm text-text-primary font-medium tracking-wide">
+                {text.accountant}
+              </div>
             </div>
           </div>
           <h3 className="font-display text-base sm:text-lg text-text-primary mb-4">{text.orderSummary}</h3>
@@ -230,7 +257,7 @@ export default function CheckoutPage() {
             {items.map((it, i) => (
               <div key={i} className="flex justify-between gap-3 text-xs sm:text-sm">
                 <div className="min-w-0">
-                  <div className="text-white truncate">{it.name}</div>
+                  <div className="text-text-primary truncate">{it.name}</div>
                   <div className="text-text-muted text-[10px] sm:text-xs">
                     {it.size} {it.color && `· ${it.color}`} × {it.quantity}
                   </div>

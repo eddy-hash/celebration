@@ -60,7 +60,7 @@ export default function ProductPage() {
   const desc = lang === 'sw' ? product.descSw : product.descEn;
 
   const handleAdd = () => {
-    add({ productId: product.id, name, price: product.price, size, color, quantity: qty });
+    add({ productId: product.id, name, price: product.price, imageUrl: product.images?.[0] || '/fabric.jpg', size, color, quantity: qty });
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);
   };

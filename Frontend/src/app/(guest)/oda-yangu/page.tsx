@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useI18n } from '@/lib/i18n';
-import { useAuth } from '@/lib/store';
+import { useAuth, useCart } from '@/lib/store';
 import { Container } from '@/components/ui/Container';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
@@ -15,6 +15,7 @@ import { api } from '@/lib/api';
 export default function MyOrderPage() {
   const { t } = useI18n();
   const { isLoggedIn, user } = useAuth();
+  const { add, clear } = useCart();
   const router = useRouter();
   const [orders, setOrders] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -38,6 +39,21 @@ export default function MyOrderPage() {
     })();
   }, [user]);
 
+  function restoreCartFromOrder(order: any) {
+    clear();
+    (order.items || []).forEach((it: any) => {
+      add({
+        productId: it.productId,
+        name: it.productName,
+        imageUrl: it.imageUrl,
+        price: it.unitPrice,
+        size: it.size,
+        color: it.color,
+        quantity: it.quantity,
+      });
+    });
+  }
+
   return (
     <>
       
@@ -48,9 +64,9 @@ export default function MyOrderPage() {
           Sherehe ya Ubatizo
         </div>
         <div className="font-display text-lg text-text-primary font-bold tracking-wide mb-4">
-          EDGAR EDSONI
+          ERICK EDSONI
         </div>
-        <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl text-white">{t('order.title')}</h1>
+        <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl text-text-primary">{t('order.title')}</h1>
       </div>
 
           {loading ? (
@@ -60,7 +76,7 @@ export default function MyOrderPage() {
               <div className="h-20 w-20 mx-auto rounded-2xl bg-brand/10 border border-brand/30 flex items-center justify-center mb-4">
                 <InboxIcon className="h-10 w-10 text-brand" />
               </div>
-              <h3 className="font-display text-xl lg:text-2xl text-white">{t('order.empty')}</h3>
+              <h3 className="font-display text-xl lg:text-2xl text-text-primary">{t('order.empty')}</h3>
               <p className="text-text-secondary mt-2 text-sm">{t('order.emptyDesc')}</p>
               <Link href="/kitambaa" className="btn-primary mt-6 inline-flex">
                 <ShoppingBagIcon className="h-5 w-5" />
@@ -102,7 +118,14 @@ export default function MyOrderPage() {
                     ))}
                   </div>
                   {o.status === 'awaiting_payment' && (
-                    <Button onClick={() => router.push('/checkout')} size="sm" className="mt-4">
+                    <Button
+                      onClick={() => {
+                        restoreCartFromOrder(o);
+                        router.push('/checkout');
+                      }}
+                      size="sm"
+                      className="mt-4"
+                    >
                       {t('order.payNow')}
                     </Button>
                   )}

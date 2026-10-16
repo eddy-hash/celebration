@@ -71,7 +71,7 @@ export default function OrdersPage() {
     <div className="space-y-5">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl text-white">{text.title}</h1>
+          <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl text-text-primary">{text.title}</h1>
           <p className="text-text-secondary mt-1 text-xs sm:text-sm">{text.subtitle}</p>
         </div>
         <button
@@ -91,7 +91,7 @@ export default function OrdersPage() {
               onClick={() => setFilter(f)}
               className={`px-3.5 py-2 rounded-full text-xs sm:text-sm font-semibold border whitespace-nowrap transition ${
                 filter === f
-                  ? 'bg-brand text-text-primary border-brand'
+                  ? 'bg-brand text-white border-brand'
                   : 'border-border-subtle text-text-secondary hover:border-brand/40 hover:text-text-primary'
               }`}
             >
@@ -108,7 +108,7 @@ export default function OrdersPage() {
       ) : orders.length === 0 ? (
         <div className="card p-8 sm:p-12 text-center">
           <InboxIcon className="h-12 w-12 text-text-muted mx-auto mb-4" />
-          <h3 className="text-white text-base sm:text-lg font-semibold">{text.empty}</h3>
+          <h3 className="text-text-primary text-base sm:text-lg font-semibold">{text.empty}</h3>
           <p className="text-text-muted text-xs sm:text-sm mt-1">{text.emptyDesc}</p>
         </div>
       ) : (
@@ -153,7 +153,7 @@ export default function OrdersPage() {
                   {o.status === 'paid' && (
                     <button
                       onClick={() => fulfill(o.id)}
-                      className="flex-1 h-9 rounded-lg bg-brand text-text-primary text-xs font-semibold
+                      className="flex-1 h-9 rounded-lg bg-brand text-white text-xs font-semibold
                                  hover:bg-brand-dark transition flex items-center justify-center gap-1.5"
                     >
                       <CheckCircleIcon className="h-3.5 w-3.5" />
@@ -172,7 +172,7 @@ export default function OrdersPage() {
                   {o.items.map((it: any) => (
                     <div key={it.id} className="flex justify-between items-center text-xs sm:text-sm gap-2">
                       <div className="min-w-0 truncate">
-                        <span className="text-white">{it.productName}</span>
+                        <span className="text-text-primary">{it.productName}</span>
                         <span className="text-text-muted ml-2">
                           {it.size && `· ${it.size}`}
                           {it.color && ` · ${it.color}`}

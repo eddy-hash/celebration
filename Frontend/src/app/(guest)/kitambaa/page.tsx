@@ -68,7 +68,7 @@ function CatalogInner() {
             onClick={() => setFilter(null)}
             className={cn(
               'inline-flex items-center gap-1.5 px-3.5 h-9 rounded-full text-xs sm:text-sm font-semibold border transition-all whitespace-nowrap',
-              !filter ? 'bg-brand text-text-primary border-brand' : 'border-border-subtle text-text-secondary hover:border-brand/40 hover:text-text-primary',
+              !filter ? 'bg-brand text-white border-brand' : 'border-border-subtle text-text-secondary hover:border-brand/40 hover:text-text-primary',
             )}
           >
             <FunnelIcon className="h-3.5 w-3.5" />
@@ -80,7 +80,7 @@ function CatalogInner() {
               onClick={() => setFilter(c.id)}
               className={cn(
                 'px-3.5 h-9 rounded-full text-xs sm:text-sm font-semibold border transition-all whitespace-nowrap',
-                filter === c.id ? 'bg-brand text-text-primary border-brand' : 'border-border-subtle text-text-secondary hover:border-brand/40 hover:text-text-primary',
+                filter === c.id ? 'bg-brand text-white border-brand' : 'border-border-subtle text-text-secondary hover:border-brand/40 hover:text-text-primary',
               )}
             >
               {lang === 'sw' ? c.titleSw : c.titleEn}
@@ -107,7 +107,7 @@ function CatalogInner() {
           <div className="h-16 w-16 mx-auto rounded-2xl bg-brand/10 border border-brand/30 flex items-center justify-center mb-3">
             <PhotoIcon className="h-8 w-8 text-brand" />
           </div>
-          <h3 className="text-white text-base sm:text-lg font-semibold">{t('kitambaa.empty')}</h3>
+          <h3 className="text-text-primary text-base sm:text-lg font-semibold">{t('kitambaa.empty')}</h3>
           <p className="text-text-secondary mt-1 text-xs sm:text-sm">{t('kitambaa.emptyDesc')}</p>
         </div>
       ) : (
@@ -132,7 +132,7 @@ function CatalogInner() {
 
                 {/* Info */}
                 <div className="p-3 sm:p-4 flex-1 flex flex-col">
-                  <h3 className="text-white font-semibold text-xs sm:text-sm lg:text-base truncate">
+                  <h3 className="text-text-primary font-semibold text-xs sm:text-sm lg:text-base truncate">
                     {getName(p)}
                   </h3>
                   <div className="flex items-center justify-between gap-2 mt-auto pt-2 sm:pt-3">

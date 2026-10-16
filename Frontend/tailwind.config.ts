@@ -22,11 +22,14 @@ const config: Config = {
       fontFamily: {
         display: ['var(--font-playfair)', 'serif'],
         body: ['var(--font-inter)', 'sans-serif'],
+        script: ['var(--font-great-vibes)', 'cursive'],
+        elegant: ['var(--font-cormorant)', 'serif'],
       },
       boxShadow: {
         card: '0 4px 24px rgba(0,0,0,0.25)',
         'card-hover': '0 12px 40px rgba(233,30,99,0.25)',
         button: '0 4px 16px rgba(233,30,99,0.4)',
+        invitation: '0 20px 60px rgba(212, 160, 23, 0.2), 0 0 0 1px rgba(212, 160, 23, 0.15)',
       },
     },
   },
