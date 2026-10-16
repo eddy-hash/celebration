@@ -28,7 +28,7 @@ export default function ContactPage() {
         <Container>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-12">
             <p className="eyebrow">Mawasiliano</p>
-            <h1 className="font-display text-5xl text-white mt-3">{t('contact.title')}</h1>
+            <h1 className="font-display text-5xl text-text-primary mt-3">{t('contact.title')}</h1>
             <p className="text-text-secondary mt-3">{t('contact.subtitle')}</p>
           </motion.div>
 

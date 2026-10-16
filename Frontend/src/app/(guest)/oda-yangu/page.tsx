@@ -47,7 +47,7 @@ export default function MyOrderPage() {
         <div className="text-[10px] uppercase tracking-[0.2em] text-gold/80 mb-1">
           Sherehe ya Ubatizo
         </div>
-        <div className="font-display text-lg text-white font-bold tracking-wide mb-4">
+        <div className="font-display text-lg text-text-primary font-bold tracking-wide mb-4">
           EDGAR EDSONI
         </div>
         <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl text-white">{t('order.title')}</h1>
@@ -80,7 +80,7 @@ export default function MyOrderPage() {
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div className="min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <span className="font-mono text-white font-bold text-sm lg:text-base">#{o.orderNumber}</span>
+                        <span className="font-mono text-text-primary font-bold text-sm lg:text-base">#{o.orderNumber}</span>
                         <Badge color={o.status === 'paid' ? 'success' : o.status === 'fulfilled' ? 'brand' : 'warning'}>
                           {t(`order.status.${o.status}`) || o.status}
                         </Badge>

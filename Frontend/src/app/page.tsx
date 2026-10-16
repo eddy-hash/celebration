@@ -238,7 +238,7 @@ export default function HomePage() {
                     <Icon className="h-4 w-4 sm:h-5 sm:w-5 text-brand" strokeWidth={1.5} />
                   </div>
                   <div className="min-w-0 pt-0.5">
-                    <div className="font-semibold text-white text-xs sm:text-sm truncate">
+                    <div className="font-semibold text-text-primary text-xs sm:text-sm truncate">
                       {text.trust[key].title}
                     </div>
                     <div className="text-text-muted text-[10px] sm:text-xs mt-0.5 leading-snug line-clamp-2">
@@ -261,7 +261,7 @@ export default function HomePage() {
               className="text-center mb-10 sm:mb-16 max-w-2xl mx-auto px-2"
             >
               <p className="eyebrow">{text.categories.eyebrow}</p>
-              <h2 className="font-display text-2xl sm:text-4xl lg:text-5xl text-white mt-3 sm:mt-5 leading-tight">
+              <h2 className="font-display text-2xl sm:text-4xl lg:text-5xl text-text-primary mt-3 sm:mt-5 leading-tight">
                 {text.categories.title}
               </h2>
               <p className="text-text-secondary text-xs sm:text-base mt-3 sm:mt-4 leading-relaxed">
@@ -284,7 +284,7 @@ export default function HomePage() {
                       <div className="absolute -top-10 -right-10 h-20 w-20 rounded-full bg-brand/10 blur-2xl group-hover:bg-brand/25 transition-colors duration-500" />
                       <div className="relative">
                         <div className="h-12 w-12 sm:h-14 sm:w-14 rounded-2xl bg-brand/10 border border-brand/30 flex items-center justify-center mb-4 sm:mb-5 group-hover:bg-brand group-hover:scale-105 transition-all duration-300">
-                          <Icon className="h-5 w-5 sm:h-6 sm:w-6 text-brand group-hover:text-white transition-colors" strokeWidth={1.5} />
+                          <Icon className="h-5 w-5 sm:h-6 sm:w-6 text-brand group-hover:text-text-primary transition-colors" strokeWidth={1.5} />
                         </div>
                         <h3 className="text-white text-lg sm:text-xl font-semibold leading-tight">
                           {text.categories[c.key].title}
@@ -320,7 +320,7 @@ export default function HomePage() {
               <div className="absolute bottom-0 left-0 w-64 h-64 bg-gold/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
               <div className="relative max-w-3xl mx-auto">
                 <p className="eyebrow">{text.cta.eyebrow}</p>
-                <h3 className="font-display text-2xl sm:text-4xl lg:text-5xl text-white mt-3 sm:mt-4 leading-tight">
+                <h3 className="font-display text-2xl sm:text-4xl lg:text-5xl text-text-primary mt-3 sm:mt-4 leading-tight">
                   {text.cta.title}
                 </h3>
                 <p className="text-text-secondary mt-4 text-sm sm:text-base leading-relaxed max-w-xl mx-auto">

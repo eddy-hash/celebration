@@ -128,7 +128,7 @@ function LoginForm() {
         >
           {/* Title */}
           <div className="text-center mb-8">
-            <h1 className="font-display text-3xl text-white tracking-tight">
+            <h1 className="font-display text-3xl text-text-primary tracking-tight">
               {text.title}
             </h1>
             <p className="text-text-secondary mt-2 text-sm">
@@ -172,7 +172,7 @@ function LoginForm() {
                   autoComplete="tel"
                   autoFocus
                   className="w-full h-12 pl-10 pr-4 rounded-xl bg-bg-elevated border border-border-subtle
-                             text-white placeholder-text-muted/60 font-mono text-base
+                             text-text-primary placeholder-text-muted/60 font-mono text-base
                              focus:outline-none focus:border-brand focus:ring-2 focus:ring-brand/30
                              transition-all"
                 />
@@ -193,7 +193,7 @@ function LoginForm() {
                   placeholder={text.codePlaceholder}
                   autoComplete="off"
                   className="w-full h-12 pl-10 pr-4 rounded-xl bg-bg-elevated border border-border-subtle
-                             text-white placeholder-text-muted/60 font-mono text-base tracking-wider uppercase
+                             text-text-primary placeholder-text-muted/60 font-mono text-base tracking-wider uppercase
                              focus:outline-none focus:border-brand focus:ring-2 focus:ring-brand/30
                              transition-all"
                 />
@@ -204,7 +204,7 @@ function LoginForm() {
             <button
               type="submit"
               disabled={loading || !phone || !code}
-              className="w-full h-12 mt-2 rounded-xl bg-brand text-white font-semibold text-base
+              className="w-full h-12 mt-2 rounded-xl bg-brand text-text-primary font-semibold text-base
                          shadow-button hover:bg-brand-dark active:scale-[0.98]
                          disabled:opacity-40 disabled:cursor-not-allowed
                          transition-all flex items-center justify-center gap-2"

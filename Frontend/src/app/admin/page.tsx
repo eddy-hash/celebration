@@ -109,7 +109,7 @@ export default function AdminDashboard() {
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="eyebrow">{text.eyebrow}</p>
-          <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl text-white mt-1">
+          <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl text-text-primary mt-1">
             {text.welcome}
           </h1>
           <p className="text-text-secondary mt-1 text-xs sm:text-sm">{text.subtitle}</p>
@@ -118,7 +118,7 @@ export default function AdminDashboard() {
           onClick={load}
           disabled={refreshing}
           className="self-start sm:self-auto h-10 w-10 rounded-xl border border-border-subtle
-                     flex items-center justify-center text-white hover:bg-bg-elevated transition"
+                     flex items-center justify-center text-text-primary hover:bg-bg-elevated transition"
         >
           <ArrowPathIcon className={`h-4 w-4 ${refreshing ? 'animate-spin' : ''}`} />
         </button>
@@ -137,7 +137,7 @@ export default function AdminDashboard() {
                 </div>
                 <Badge color={s.color as any} className="text-[9px] sm:text-[10px]">{s.sub}</Badge>
               </div>
-              <div className="font-display text-xl sm:text-2xl lg:text-3xl font-bold text-white break-all">
+              <div className="font-display text-xl sm:text-2xl lg:text-3xl font-bold text-text-primary break-all">
                 {s.value}
               </div>
               <div className="text-[10px] sm:text-xs text-text-muted mt-1">{s.label}</div>

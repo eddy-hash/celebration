@@ -102,7 +102,7 @@ export default function AuditLogsPage() {
           onClick={load}
           disabled={loading}
           className="self-start sm:self-auto h-10 w-10 rounded-xl border border-border-subtle
-                     flex items-center justify-center text-white hover:bg-bg-elevated transition"
+                     flex items-center justify-center text-text-primary hover:bg-bg-elevated transition"
         >
           <ArrowPathIcon className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
         </button>
@@ -140,7 +140,7 @@ export default function AuditLogsPage() {
             onChange={(e) => setSearch(e.target.value)}
             placeholder={text.search}
             className="w-full h-11 pl-10 pr-3 rounded-xl bg-bg-elevated border border-border-subtle
-                       text-white placeholder-text-muted/60 text-sm
+                       text-text-primary placeholder-text-muted/60 text-sm
                        focus:outline-none focus:border-brand focus:ring-2 focus:ring-brand/30"
           />
         </div>
@@ -149,7 +149,7 @@ export default function AuditLogsPage() {
             value={actionFilter}
             onChange={(e) => setActionFilter(e.target.value)}
             className="h-11 px-3 rounded-xl bg-bg-elevated border border-border-subtle
-                       text-white text-xs sm:text-sm focus:outline-none focus:border-brand"
+                       text-text-primary text-xs sm:text-sm focus:outline-none focus:border-brand"
           >
             <option value="">{text.allActions}</option>
             <option value="admin_login">Admin Login</option>
@@ -162,7 +162,7 @@ export default function AuditLogsPage() {
             value={rangeFilter}
             onChange={(e) => setRangeFilter(e.target.value as any)}
             className="h-11 px-3 rounded-xl bg-bg-elevated border border-border-subtle
-                       text-white text-xs sm:text-sm focus:outline-none focus:border-brand"
+                       text-text-primary text-xs sm:text-sm focus:outline-none focus:border-brand"
           >
             <option value="today">{text.today}</option>
             <option value="7d">{text.last7}</option>
@@ -173,7 +173,7 @@ export default function AuditLogsPage() {
         <button
           type="submit"
           className="w-full h-11 rounded-xl bg-bg-surface hover:bg-bg-elevated transition
-                     text-white text-sm font-medium flex items-center justify-center gap-2
+                     text-text-primary text-sm font-medium flex items-center justify-center gap-2
                      border border-border-subtle"
         >
           <FunnelIcon className="h-4 w-4" />

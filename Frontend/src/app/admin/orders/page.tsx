@@ -77,7 +77,7 @@ export default function OrdersPage() {
         <button
           onClick={load}
           className="self-start sm:self-auto h-10 w-10 rounded-xl border border-border-subtle
-                     flex items-center justify-center text-white hover:bg-bg-elevated transition"
+                     flex items-center justify-center text-text-primary hover:bg-bg-elevated transition"
         >
           <ArrowPathIcon className="h-4 w-4" />
         </button>
@@ -91,8 +91,8 @@ export default function OrdersPage() {
               onClick={() => setFilter(f)}
               className={`px-3.5 py-2 rounded-full text-xs sm:text-sm font-semibold border whitespace-nowrap transition ${
                 filter === f
-                  ? 'bg-brand text-white border-brand'
-                  : 'border-border-subtle text-text-secondary hover:border-brand/40 hover:text-white'
+                  ? 'bg-brand text-text-primary border-brand'
+                  : 'border-border-subtle text-text-secondary hover:border-brand/40 hover:text-text-primary'
               }`}
             >
               {f === 'all' ? text.all : f === 'awaiting' ? text.awaiting : f === 'paid' ? text.paid : text.fulfilled}
@@ -119,7 +119,7 @@ export default function OrdersPage() {
               <div className="p-3 sm:p-4">
                 <div className="flex items-start justify-between gap-3 mb-2">
                   <div className="flex items-center gap-2 flex-wrap min-w-0">
-                    <span className="font-mono text-white font-semibold text-xs sm:text-sm">
+                    <span className="font-mono text-text-primary font-semibold text-xs sm:text-sm">
                       {o.orderNumber}
                     </span>
                     <Badge color={statusColor(o.status)}>
@@ -153,7 +153,7 @@ export default function OrdersPage() {
                   {o.status === 'paid' && (
                     <button
                       onClick={() => fulfill(o.id)}
-                      className="flex-1 h-9 rounded-lg bg-brand text-white text-xs font-semibold
+                      className="flex-1 h-9 rounded-lg bg-brand text-text-primary text-xs font-semibold
                                  hover:bg-brand-dark transition flex items-center justify-center gap-1.5"
                     >
                       <CheckCircleIcon className="h-3.5 w-3.5" />

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAdmin, useAdminHydrated } from '@/lib/store';
 import { LanguageSwitch } from '@/components/features/LanguageSwitch';
+import { ThemeToggle } from '@/components/features/ThemeToggle';
 import { ArrowRightOnRectangleIcon, BellIcon } from '@heroicons/react/24/outline';
 
 export function AdminTopbar() {
@@ -45,7 +46,7 @@ export function AdminTopbar() {
                     px-6 lg:px-10 border-b border-border-subtle bg-bg-base/80 backdrop-blur-xl">
       <div>
         <div className="text-xs text-text-muted uppercase tracking-wider">{today}</div>
-        <div className="text-sm font-semibold text-white mt-0.5">
+        <div className="text-sm font-semibold text-text-primary mt-0.5">
           {lang === 'sw' ? 'Karibu tena' : 'Welcome back'},{' '}
           <span className="text-brand">
             {hydrated ? (adminUser?.name || 'Admin') : '…'}
@@ -54,13 +55,14 @@ export function AdminTopbar() {
       </div>
 
       <div className="flex items-center gap-3">
+        <ThemeToggle />
         <LanguageSwitch />
 
         <button
           className="relative p-2.5 rounded-xl hover:bg-bg-elevated transition"
           aria-label="Notifications"
         >
-          <BellIcon className="h-5 w-5 text-white" strokeWidth={1.5} />
+          <BellIcon className="h-5 w-5 text-text-primary" strokeWidth={1.5} />
           <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-brand" />
         </button>
 

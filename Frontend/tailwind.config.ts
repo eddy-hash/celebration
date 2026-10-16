@@ -1,19 +1,23 @@
 import type { Config } from 'tailwindcss';
 
 const config: Config = {
-  content: ['./src/**/*.{ts,tsx,js,jsx,mdx}'],
+  content: ['./src/**/*.{ts,tsx}'],
   theme: {
     extend: {
       colors: {
-        'bg-base': '#0D0D0D',
-        'bg-elevated': '#1A1A1A',
-        'bg-surface': '#242424',
-        brand: { DEFAULT: '#E91E63', dark: '#C2185B', light: '#F48FB1' },
-        gold: '#D4A017',
-        'text-primary': '#FFFFFF',
-        'text-secondary': '#B0B0B0',
-        'text-muted': '#6B6B6B',
-        'border-subtle': '#2E2E2E',
+        'bg-base': 'rgb(var(--color-bg-base) / <alpha-value>)',
+        'bg-elevated': 'rgb(var(--color-bg-elevated) / <alpha-value>)',
+        'bg-surface': 'rgb(var(--color-bg-surface) / <alpha-value>)',
+        brand: {
+          DEFAULT: 'rgb(var(--color-brand) / <alpha-value>)',
+          dark: 'rgb(var(--color-brand-dark) / <alpha-value>)',
+          light: 'rgb(var(--color-brand-light) / <alpha-value>)',
+        },
+        gold: 'rgb(var(--color-gold) / <alpha-value>)',
+        'text-primary': 'rgb(var(--color-text-primary) / <alpha-value>)',
+        'text-secondary': 'rgb(var(--color-text-secondary) / <alpha-value>)',
+        'text-muted': 'rgb(var(--color-text-muted) / <alpha-value>)',
+        'border-subtle': 'rgb(var(--color-border-subtle) / <alpha-value>)',
       },
       fontFamily: {
         display: ['var(--font-playfair)', 'serif'],
@@ -28,4 +32,5 @@ const config: Config = {
   },
   plugins: [],
 };
+
 export default config;

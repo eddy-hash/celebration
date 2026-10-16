@@ -16,7 +16,7 @@ export function LanguageSwitch({ className }: { className?: string }) {
           onClick={() => setLang(l)}
           className={cn(
             'px-2.5 sm:px-3 py-1 text-[10px] sm:text-xs font-bold uppercase rounded-full transition-all',
-            lang === l ? 'bg-brand text-white' : 'text-text-secondary hover:text-white',
+            lang === l ? 'bg-brand text-white' : 'text-text-secondary hover:text-text-primary',
           )}
           aria-label={l === 'sw' ? 'Kiswahili' : 'English'}
         >

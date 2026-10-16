@@ -138,7 +138,7 @@ export default function CheckoutPage() {
     <div className="space-y-5 sm:space-y-6">
       <div className="px-0.5">
         <p className="eyebrow">{lang === 'sw' ? 'Maliza' : 'Finish'}</p>
-        <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl text-white mt-1.5">
+        <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl text-text-primary mt-1.5">
           {text.title}
         </h1>
       </div>
@@ -147,7 +147,7 @@ export default function CheckoutPage() {
         <div className="lg:col-span-2 space-y-4">
           {/* Contact info */}
           <div className="card p-4 sm:p-5">
-            <h3 className="font-display text-base sm:text-lg text-white mb-4">{text.info}</h3>
+            <h3 className="font-display text-base sm:text-lg text-text-primary mb-4">{text.info}</h3>
             <div className="grid sm:grid-cols-2 gap-3">
               <Input label={text.name} value={name} onChange={(e) => setName(e.target.value)} required />
               <Input label={text.phone} value={phone} onChange={(e) => setPhone(e.target.value)} inputMode="tel" required />
@@ -161,7 +161,7 @@ export default function CheckoutPage() {
 
           {/* Payment method — with YAS logo */}
           <div className="card p-4 sm:p-5">
-            <h3 className="font-display text-base sm:text-lg text-white mb-4">{text.payment}</h3>
+            <h3 className="font-display text-base sm:text-lg text-text-primary mb-4">{text.payment}</h3>
 
             <div className="relative flex items-start gap-4 p-4 sm:p-5 rounded-2xl border-2 border-brand bg-brand/5">
               {/* YAS logo */}
@@ -220,11 +220,11 @@ export default function CheckoutPage() {
             <div className="text-[10px] uppercase tracking-[0.2em] text-gold/80 mb-1">
               {text.celebration}
             </div>
-            <div className="font-display text-base sm:text-lg text-white font-bold tracking-wide">
+            <div className="font-display text-base sm:text-lg text-text-primary font-bold tracking-wide">
               {text.celebrant}
             </div>
           </div>
-          <h3 className="font-display text-base sm:text-lg text-white mb-4">{text.orderSummary}</h3>
+          <h3 className="font-display text-base sm:text-lg text-text-primary mb-4">{text.orderSummary}</h3>
 
           <div className="space-y-2.5 max-h-56 overflow-y-auto pr-1">
             {items.map((it, i) => (
@@ -251,7 +251,7 @@ export default function CheckoutPage() {
               <span>{text.shipping}</span>
               <span className="text-emerald-400">{text.free}</span>
             </div>
-            <div className="flex justify-between text-white font-bold text-base pt-1 border-t border-border-subtle">
+            <div className="flex justify-between text-text-primary font-bold text-base pt-1 border-t border-border-subtle">
               <span>{text.total}</span>
               <span className="text-brand">{formatTsh(subtotal)}</span>
             </div>

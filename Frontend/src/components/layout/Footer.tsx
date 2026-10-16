@@ -28,7 +28,7 @@ export function Footer() {
                 <path d="M10 2h4v4h4v4h-4v12h-4V10H6V6h4V2z" />
               </svg>
               <div>
-                <div className="font-display text-xl font-bold text-white">Mama Dani</div>
+                <div className="font-display text-xl font-bold text-text-primary">Mama Dani</div>
                 <div className="text-[9px] tracking-[0.28em] text-text-muted uppercase">
                   Baptism Celebration
                 </div>
@@ -48,7 +48,7 @@ export function Footer() {
             </div>
           </div>
           <div>
-            <h4 className="font-display text-lg text-white mb-4">{t('footer.quickLinks')}</h4>
+            <h4 className="font-display text-lg text-text-primary mb-4">{t('footer.quickLinks')}</h4>
             <ul className="space-y-2 text-sm">
               <li><Link href="/" className="text-text-secondary hover:text-brand transition">{t('nav.home')}</Link></li>
               <li><Link href="/kitambaa" className="text-text-secondary hover:text-brand transition">{t('nav.kitambaa')}</Link></li>
@@ -57,7 +57,7 @@ export function Footer() {
             </ul>
           </div>
           <div>
-            <h4 className="font-display text-lg text-white mb-4">{t('footer.contactUs')}</h4>
+            <h4 className="font-display text-lg text-text-primary mb-4">{t('footer.contactUs')}</h4>
             <ul className="space-y-3 text-sm">
               <li>
                 <a href={telLink(p1)} className="flex items-center gap-2 text-text-secondary hover:text-brand transition">

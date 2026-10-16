@@ -11,9 +11,9 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 const V: Record<Variant, string> = {
   primary: 'bg-brand text-white shadow-button hover:bg-brand-dark hover:scale-[1.02] active:scale-[0.98]',
-  ghost: 'border border-border-subtle text-white hover:bg-bg-elevated',
+  ghost: 'border border-border-subtle text-text-primary hover:bg-bg-elevated',
   whatsapp: 'bg-[#25D366] text-white hover:brightness-110',
-  danger: 'bg-red-500 text-white hover:bg-red-600',
+  danger: 'bg-red-500 text-text-primary hover:bg-red-600',
 };
 const S: Record<Size, string> = { sm: 'h-9 px-4 text-sm', md: 'h-12 px-6', lg: 'h-14 px-8 text-lg' };
 

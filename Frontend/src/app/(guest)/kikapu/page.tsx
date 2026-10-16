@@ -27,7 +27,7 @@ export default function CartPage() {
       
       <main className="min-h-screen py-8 lg:py-12">
         <Container>
-          <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl text-white mb-8 lg:mb-10">
+          <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl text-text-primary mb-8 lg:mb-10">
             {t('cart.title')}
           </h1>
 
@@ -61,7 +61,7 @@ export default function CartPage() {
                         <PhotoIcon className="h-8 w-8 text-text-muted" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="font-semibold text-white truncate text-sm lg:text-base">{item.name}</div>
+                        <div className="font-semibold text-text-primary truncate text-sm lg:text-base">{item.name}</div>
                         <div className="text-text-muted text-xs lg:text-sm mt-1">
                           {item.size && <>Size: {item.size}</>}
                           {item.size && item.color && ' · '}
@@ -91,7 +91,7 @@ export default function CartPage() {
                 transition={{ delay: 0.1 }}
                 className="lg:sticky lg:top-24 h-fit card p-5 lg:p-6"
               >
-                <h3 className="font-display text-xl lg:text-2xl text-white mb-5 lg:mb-6">{t('checkout.orderSummary')}</h3>
+                <h3 className="font-display text-xl lg:text-2xl text-text-primary mb-5 lg:mb-6">{t('checkout.orderSummary')}</h3>
                 <div className="space-y-3 text-sm">
                   <div className="flex justify-between text-text-secondary">
                     <span>{t('cart.subtotal')}</span>
@@ -101,7 +101,7 @@ export default function CartPage() {
                     <span>{t('cart.shipping')}</span>
                     <span className="text-emerald-400">Bure</span>
                   </div>
-                  <div className="border-t border-border-subtle pt-3 flex justify-between text-white font-bold text-base lg:text-lg">
+                  <div className="border-t border-border-subtle pt-3 flex justify-between text-text-primary font-bold text-base lg:text-lg">
                     <span>{t('cart.total')}</span>
                     <span className="text-brand">{formatTsh(subtotal)}</span>
                   </div>
@@ -109,7 +109,7 @@ export default function CartPage() {
                 <Button onClick={() => router.push('/checkout')} className="w-full mt-5 lg:mt-6" size="lg">
                   {t('cart.checkout')}
                 </Button>
-                <Link href="/kitambaa" className="block text-center text-sm text-text-secondary hover:text-white mt-4">
+                <Link href="/kitambaa" className="block text-center text-sm text-text-secondary hover:text-text-primary mt-4">
                   {t('cart.continue')}
                 </Link>
               </motion.div>

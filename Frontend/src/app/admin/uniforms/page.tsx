@@ -84,7 +84,7 @@ export default function UniformsPage() {
         <button
           onClick={load}
           className="self-start sm:self-auto h-10 w-10 rounded-xl border border-border-subtle
-                     flex items-center justify-center text-white hover:bg-bg-elevated transition"
+                     flex items-center justify-center text-text-primary hover:bg-bg-elevated transition"
         >
           <ArrowPathIcon className="h-4 w-4" />
         </button>
@@ -170,7 +170,7 @@ export default function UniformsPage() {
                 {u.status === 'delivered' && (
                   <button
                     onClick={() => updateStatus(u.id, 'distributed')}
-                    className="flex-1 h-9 rounded-lg bg-brand text-white text-xs font-semibold
+                    className="flex-1 h-9 rounded-lg bg-brand text-text-primary text-xs font-semibold
                                hover:bg-brand-dark transition flex items-center justify-center gap-1.5"
                   >
                     <CheckCircleIcon className="h-3.5 w-3.5" />

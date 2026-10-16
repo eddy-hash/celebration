@@ -2,14 +2,35 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================================
+   THEME VARIABLES — RGB channels for Tailwind opacity support
+   ============================================================ */
+:root {
+  --color-bg-base: 13 13 13;
+  --color-bg-elevated: 26 26 26;
+  --color-bg-surface: 36 36 36;
+  --color-brand: 233 30 99;
+  --color-brand-dark: 194 24 91;
+  --color-brand-light: 244 143 177;
+  --color-gold: 212 160 23;
+  --color-text-primary: 255 255 255;
+  --color-text-secondary: 209 213 219;
+  --color-text-muted: 156 163 175;
+  --color-border-subtle: 55 55 55;
+}
+
+html {
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
 @layer base {
   html { scroll-behavior: smooth; }
 
   body {
     @apply bg-bg-base text-text-primary font-body antialiased;
     background-image:
-      radial-gradient(ellipse at top left, rgba(233,30,99,0.08), transparent 50%),
-      radial-gradient(ellipse at bottom right, rgba(212,160,23,0.05), transparent 50%);
+      radial-gradient(ellipse at top left, rgba(233, 30, 99, 0.08), transparent 50%),
+      radial-gradient(ellipse at bottom right, rgba(212, 160, 23, 0.05), transparent 50%);
     background-attachment: fixed;
   }
 
@@ -30,7 +51,7 @@
   }
   .btn-ghost {
     @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl
-           border border-border-subtle text-white font-semibold
+           border border-border-subtle text-text-primary font-semibold
            hover:bg-bg-elevated transition-all duration-200;
   }
   .card {
@@ -39,7 +60,7 @@
   }
   .input {
     @apply w-full px-4 py-3 rounded-xl bg-bg-elevated border border-border-subtle
-           text-white placeholder-text-muted
+           text-text-primary placeholder-text-muted
            focus:outline-none focus:border-brand focus:ring-2 focus:ring-brand/30
            transition-all;
   }
@@ -49,9 +70,9 @@
 }
 
 ::-webkit-scrollbar { width: 10px; }
-::-webkit-scrollbar-track { background: #0D0D0D; }
-::-webkit-scrollbar-thumb { background: #2E2E2E; border-radius: 5px; }
-::-webkit-scrollbar-thumb:hover { background: #E91E63; }
+::-webkit-scrollbar-track { background: rgb(var(--color-bg-base)); }
+::-webkit-scrollbar-thumb { background: rgb(var(--color-border-subtle)); border-radius: 5px; }
+::-webkit-scrollbar-thumb:hover { background: rgb(var(--color-brand)); }
 
 /* Hide scrollbar for horizontal filter chips */
 .scrollbar-hide {
@@ -62,24 +83,22 @@
   display: none;
 }
 
+/* iOS safe area for bottom sheets */
+.pb-safe {
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+}
+
 /* Premium heading refinements */
 .font-display {
   letter-spacing: -0.02em;
   font-feature-settings: "kern" 1, "liga" 1;
 }
 
-/* Better text rendering for adult readability */
 body {
   text-rendering: optimizeLegibility;
   font-feature-settings: "kern" 1;
 }
 
-/* Refined card transitions */
 .card {
   will-change: transform;
-}
-
-/* iOS safe area for bottom sheets */
-.pb-safe {
-  padding-bottom: max(1rem, env(safe-area-inset-bottom));
 }

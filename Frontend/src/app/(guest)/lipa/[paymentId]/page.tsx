@@ -174,7 +174,7 @@ export default function LipaPage() {
                     transition={{ delay: i * 0.08 }}
                     className="flex items-start gap-3"
                   >
-                    <span className="flex-shrink-0 h-7 w-7 sm:h-8 sm:w-8 rounded-full bg-brand text-white font-bold text-xs sm:text-sm flex items-center justify-center">
+                    <span className="flex-shrink-0 h-7 w-7 sm:h-8 sm:w-8 rounded-full bg-brand text-text-primary font-bold text-xs sm:text-sm flex items-center justify-center">
                       {i + 1}
                     </span>
                     <span className="text-white pt-0.5 text-xs sm:text-sm font-mono break-all">
@@ -216,7 +216,7 @@ export default function LipaPage() {
               </div>
               <div className="card p-3 sm:p-4">
                 <div className="text-[10px] sm:text-xs text-text-muted uppercase mb-1">{text.expiresIn}</div>
-                <div className="font-display text-lg sm:text-2xl text-white font-bold flex items-center gap-1.5">
+                <div className="font-display text-lg sm:text-2xl text-text-primary font-bold flex items-center gap-1.5">
                   <ClockIcon className="h-4 w-4 sm:h-5 sm:w-5 text-gold" />
                   {mm}:{ss}
                 </div>
@@ -233,14 +233,14 @@ export default function LipaPage() {
             <div className="text-center text-xs sm:text-sm">
               <p className="text-text-secondary mb-2">{text.supportTitle}</p>
               <div className="flex flex-wrap items-center justify-center gap-3">
-                <a href={telLink(p1)} className="inline-flex items-center gap-1.5 text-white hover:text-brand transition">
+                <a href={telLink(p1)} className="inline-flex items-center gap-1.5 text-text-primary hover:text-brand transition">
                   <PhoneIcon className="h-4 w-4" /> {formatPhone(p1)}
                 </a>
-                <a href={telLink(p2)} className="inline-flex items-center gap-1.5 text-white hover:text-brand transition">
+                <a href={telLink(p2)} className="inline-flex items-center gap-1.5 text-text-primary hover:text-brand transition">
                   <PhoneIcon className="h-4 w-4" /> {formatPhone(p2)}
                 </a>
                 <a href={whatsappLink(wa, 'Habari, nahitaji msaada kwa malipo')} target="_blank" rel="noopener"
-                   className="inline-flex items-center gap-1.5 text-white hover:text-[#25D366] transition">
+                   className="inline-flex items-center gap-1.5 text-text-primary hover:text-[#25D366] transition">
                   <ChatBubbleLeftRightIcon className="h-4 w-4" /> WhatsApp
                 </a>
               </div>
@@ -266,7 +266,7 @@ export default function LipaPage() {
               <span className="text-[9px] uppercase tracking-[0.25em] text-gold/80">
                 {text.celebration}
               </span>
-              <span className="font-display text-lg text-white font-bold tracking-wide">
+              <span className="font-display text-lg text-text-primary font-bold tracking-wide">
                 {text.celebrant}
               </span>
             </div>
@@ -301,7 +301,7 @@ export default function LipaPage() {
               <span className="text-[10px] uppercase tracking-[0.25em] text-gold/80">
                 {text.celebration}
               </span>
-              <span className="font-display text-xl sm:text-2xl text-white font-bold tracking-wide">
+              <span className="font-display text-xl sm:text-2xl text-text-primary font-bold tracking-wide">
                 {text.celebrant}
               </span>
             </div>

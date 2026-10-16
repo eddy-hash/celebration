@@ -83,7 +83,7 @@ export default function PaymentsPage() {
         <button
           onClick={load}
           className="self-start sm:self-auto h-10 w-10 rounded-xl border border-border-subtle
-                     flex items-center justify-center text-white hover:bg-bg-elevated transition"
+                     flex items-center justify-center text-text-primary hover:bg-bg-elevated transition"
         >
           <ArrowPathIcon className="h-4 w-4" />
         </button>
@@ -107,7 +107,7 @@ export default function PaymentsPage() {
               <div className="flex items-start justify-between gap-3 mb-2">
                 <div className="flex items-center gap-2 min-w-0 flex-wrap">
                   <CreditCardIcon className="h-4 w-4 text-brand flex-shrink-0" />
-                  <span className="font-mono text-white font-semibold text-xs sm:text-sm truncate">
+                  <span className="font-mono text-text-primary font-semibold text-xs sm:text-sm truncate">
                     {p.referenceCode}
                   </span>
                   <Badge color="warning">
@@ -132,7 +132,7 @@ export default function PaymentsPage() {
               <div className="mt-3 flex gap-2">
                 <button
                   onClick={() => setModal({ id: p.id, action: 'verify' })}
-                  className="flex-1 h-9 rounded-lg bg-brand text-white text-xs font-semibold
+                  className="flex-1 h-9 rounded-lg bg-brand text-text-primary text-xs font-semibold
                              hover:bg-brand-dark transition flex items-center justify-center gap-1.5"
                 >
                   <CheckCircleIcon className="h-3.5 w-3.5" />
@@ -199,7 +199,7 @@ export default function PaymentsPage() {
                 <div className="flex gap-2 pt-2">
                   <button
                     onClick={() => { setModal(null); setTxId(''); setReason(''); }}
-                    className="flex-1 h-11 rounded-xl border border-border-subtle text-white font-medium text-sm
+                    className="flex-1 h-11 rounded-xl border border-border-subtle text-text-primary font-medium text-sm
                                hover:bg-bg-surface transition"
                   >
                     {text.cancel}
@@ -207,7 +207,7 @@ export default function PaymentsPage() {
                   <button
                     onClick={doAction}
                     disabled={busy || (modal.action === 'verify' ? !txId.trim() : !reason.trim())}
-                    className="flex-1 h-11 rounded-xl bg-brand text-white font-semibold text-sm
+                    className="flex-1 h-11 rounded-xl bg-brand text-text-primary font-semibold text-sm
                                hover:bg-brand-dark disabled:opacity-50 transition
                                flex items-center justify-center"
                   >

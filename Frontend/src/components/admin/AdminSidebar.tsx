@@ -94,7 +94,7 @@ export function AdminSidebar() {
           <span className="absolute -top-0.5 left-1/2 -translate-x-1/2 h-1.5 w-1.5 rounded-full bg-gold" />
         </div>
         <div className="leading-none">
-          <div className="font-display text-lg font-bold text-white">Mama Dani</div>
+          <div className="font-display text-lg font-bold text-text-primary">Mama Dani</div>
           <div className="text-[9px] tracking-[0.25em] text-gold font-semibold uppercase mt-0.5">
             {L.panel}
           </div>
@@ -115,7 +115,7 @@ export function AdminSidebar() {
                 'flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all',
                 active
                   ? 'bg-brand text-white shadow-button'
-                  : 'text-text-secondary hover:bg-bg-surface hover:text-white',
+                  : 'text-text-secondary hover:bg-bg-surface hover:text-text-primary',
               )}
             >
               <Icon className="h-5 w-5 flex-shrink-0" strokeWidth={1.5} />
@@ -133,7 +133,7 @@ export function AdminSidebar() {
             </span>
           </div>
           <div className="min-w-0 flex-1">
-            <div className="text-white text-sm font-medium truncate">
+            <div className="text-text-primary text-sm font-medium truncate">
               {hydrated ? (adminUser?.name || 'Admin') : '…'}
             </div>
             <div className="text-text-muted text-xs truncate">{L.role}</div>
@@ -165,13 +165,13 @@ export function AdminSidebar() {
           className="p-2 rounded-xl hover:bg-bg-elevated"
           aria-label="Menu"
         >
-          <Bars3Icon className="h-6 w-6 text-white" strokeWidth={1.5} />
+          <Bars3Icon className="h-6 w-6 text-text-primary" strokeWidth={1.5} />
         </button>
         <div className="flex items-center gap-2">
           <svg viewBox="0 0 24 24" className="h-6 w-6 text-brand" fill="currentColor">
             <path d="M10 2h4v4h4v4h-4v12h-4V10H6V6h4V2z" />
           </svg>
-          <span className="font-display text-base font-bold text-white">Mama Dani</span>
+          <span className="font-display text-base font-bold text-text-primary">Mama Dani</span>
         </div>
         <button
           onClick={handleLogout}
@@ -204,7 +204,7 @@ export function AdminSidebar() {
                 onClick={() => setOpen(false)}
                 className="absolute top-4 right-4 p-2 rounded-xl hover:bg-bg-surface z-10"
               >
-                <XMarkIcon className="h-5 w-5 text-white" />
+                <XMarkIcon className="h-5 w-5 text-text-primary" />
               </button>
               <Content />
             </motion.aside>

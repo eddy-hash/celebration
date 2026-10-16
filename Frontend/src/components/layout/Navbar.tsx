@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useI18n } from '@/lib/i18n';
 import { useAuth, useCart } from '@/lib/store';
 import { LanguageSwitch } from '../features/LanguageSwitch';
+import { ThemeToggle } from '../features/ThemeToggle';
 import { Container } from '../ui/Container';
 import {
   ShoppingBagIcon,
@@ -32,8 +33,16 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', fn);
   }, []);
 
-  // Hide on admin routes — sidebar + topbar handle it
-  if (pathname.startsWith('/admin')) return null;
+  const HIDDEN = [
+    '/admin',
+    '/kitambaa',
+    '/kikapu',
+    '/checkout',
+    '/oda-yangu',
+    '/mawasiliano',
+    '/lipa',
+  ];
+  if (HIDDEN.some((r) => pathname.startsWith(r))) return null;
 
   const cartCount = mounted ? count() : 0;
   const logged = mounted ? isLoggedIn() : false;
@@ -56,7 +65,9 @@ export function Navbar() {
             <span className="absolute -top-0.5 left-1/2 -translate-x-1/2 h-1.5 w-1.5 rounded-full bg-gold" />
           </div>
           <div className="leading-none">
-            <div className="font-display text-xl lg:text-2xl font-bold text-white">Mama Dani</div>
+            <div className="font-display text-xl lg:text-2xl font-bold text-text-primary">
+              ERICK EDSONI
+            </div>
             <div className="text-[9px] lg:text-[10px] tracking-[0.28em] text-text-muted font-medium uppercase">
               Baptism Celebration
             </div>
@@ -74,7 +85,8 @@ export function Navbar() {
           <NavLink href="/mawasiliano">{t('nav.contact')}</NavLink>
         </nav>
 
-        <div className="flex items-center gap-2 lg:gap-4">
+        <div className="flex items-center gap-2 lg:gap-3">
+          <ThemeToggle />
           <LanguageSwitch className="hidden sm:inline-flex" />
 
           {logged ? (
@@ -84,7 +96,7 @@ export function Navbar() {
                 className="relative p-2 rounded-xl hover:bg-bg-elevated transition"
                 aria-label="Cart"
               >
-                <ShoppingBagIcon className="h-5 w-5 text-white" strokeWidth={1.5} />
+                <ShoppingBagIcon className="h-5 w-5 text-text-primary" strokeWidth={1.5} />
                 {cartCount > 0 && (
                   <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] px-1 rounded-full bg-brand text-white text-[10px] font-bold flex items-center justify-center">
                     {cartCount}
@@ -95,7 +107,7 @@ export function Navbar() {
               <div className="hidden lg:flex items-center gap-3 pl-3 border-l border-border-subtle">
                 <div className="text-right leading-tight">
                   <div className="text-xs text-text-muted">{t('nav.welcome')}</div>
-                  <div className="text-sm font-semibold text-white truncate max-w-[120px]">
+                  <div className="text-sm font-semibold text-text-primary truncate max-w-[120px]">
                     {user?.name}
                   </div>
                 </div>
@@ -119,7 +131,11 @@ export function Navbar() {
             onClick={() => setOpen((o) => !o)}
             aria-label="Menu"
           >
-            {open ? <XMarkIcon className="h-5 w-5" /> : <Bars3Icon className="h-5 w-5" />}
+            {open ? (
+              <XMarkIcon className="h-5 w-5 text-text-primary" />
+            ) : (
+              <Bars3Icon className="h-5 w-5 text-text-primary" />
+            )}
           </button>
         </div>
       </Container>
@@ -153,14 +169,17 @@ export function Navbar() {
                   <Link
                     href={l.href}
                     onClick={() => setOpen(false)}
-                    className="block px-4 py-3 rounded-xl hover:bg-bg-elevated text-white transition"
+                    className="block px-4 py-3 rounded-xl hover:bg-bg-elevated text-text-primary transition"
                   >
                     {l.label}
                   </Link>
                 </motion.div>
               ))}
               <div className="pt-2 flex justify-between items-center">
-                <LanguageSwitch />
+                <div className="flex items-center gap-2">
+                  <ThemeToggle />
+                  <LanguageSwitch />
+                </div>
                 {logged && (
                   <button onClick={logout} className="text-sm text-brand font-semibold">
                     {t('nav.logout')}
@@ -179,7 +198,7 @@ function NavLink({ href, children }: { href: string; children: React.ReactNode }
   return (
     <Link
       href={href}
-      className="relative text-sm text-text-secondary hover:text-white transition group"
+      className="relative text-sm text-text-secondary hover:text-text-primary transition group"
     >
       {children}
       <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-brand scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />

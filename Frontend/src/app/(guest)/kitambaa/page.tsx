@@ -53,7 +53,7 @@ function CatalogInner() {
       {/* Header */}
       <div className="px-0.5">
         <p className="eyebrow">{t('categories.eyebrow')}</p>
-        <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl text-white mt-1.5 sm:mt-2">
+        <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl text-text-primary mt-1.5 sm:mt-2">
           {t('kitambaa.title')}
         </h1>
         <p className="text-text-secondary mt-1 text-xs sm:text-sm">
@@ -68,7 +68,7 @@ function CatalogInner() {
             onClick={() => setFilter(null)}
             className={cn(
               'inline-flex items-center gap-1.5 px-3.5 h-9 rounded-full text-xs sm:text-sm font-semibold border transition-all whitespace-nowrap',
-              !filter ? 'bg-brand text-white border-brand' : 'border-border-subtle text-text-secondary hover:border-brand/40 hover:text-white',
+              !filter ? 'bg-brand text-text-primary border-brand' : 'border-border-subtle text-text-secondary hover:border-brand/40 hover:text-text-primary',
             )}
           >
             <FunnelIcon className="h-3.5 w-3.5" />
@@ -80,7 +80,7 @@ function CatalogInner() {
               onClick={() => setFilter(c.id)}
               className={cn(
                 'px-3.5 h-9 rounded-full text-xs sm:text-sm font-semibold border transition-all whitespace-nowrap',
-                filter === c.id ? 'bg-brand text-white border-brand' : 'border-border-subtle text-text-secondary hover:border-brand/40 hover:text-white',
+                filter === c.id ? 'bg-brand text-text-primary border-brand' : 'border-border-subtle text-text-secondary hover:border-brand/40 hover:text-text-primary',
               )}
             >
               {lang === 'sw' ? c.titleSw : c.titleEn}
@@ -140,7 +140,7 @@ function CatalogInner() {
                       {formatTsh(p.price)}
                     </div>
                     <div className="h-8 w-8 sm:h-9 sm:w-9 rounded-lg bg-brand/10 border border-brand/30 flex items-center justify-center group-hover:bg-brand transition-colors flex-shrink-0">
-                      <ShoppingBagIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-brand group-hover:text-white transition-colors" />
+                      <ShoppingBagIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-brand group-hover:text-text-primary transition-colors" />
                     </div>
                   </div>
                 </div>

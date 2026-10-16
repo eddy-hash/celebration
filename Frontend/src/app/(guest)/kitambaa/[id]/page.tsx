@@ -68,7 +68,7 @@ export default function ProductPage() {
   return (
     <div className="space-y-5">
       {/* Back */}
-      <Link href="/kitambaa" className="inline-flex items-center gap-2 text-text-secondary hover:text-white transition text-sm">
+      <Link href="/kitambaa" className="inline-flex items-center gap-2 text-text-secondary hover:text-text-primary transition text-sm">
         <ArrowLeftIcon className="h-4 w-4" /> {t('common.back')}
       </Link>
 
@@ -88,7 +88,7 @@ export default function ProductPage() {
 
         {/* Details */}
         <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col">
-          <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl text-white leading-tight">
+          <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl text-text-primary leading-tight">
             {name}
           </h1>
 
@@ -115,7 +115,7 @@ export default function ProductPage() {
                     onClick={() => setSize(s)}
                     className={cn(
                       'min-w-[48px] h-10 px-3 rounded-xl border font-semibold transition-all text-xs sm:text-sm',
-                      size === s ? 'bg-brand text-white border-brand shadow-button' : 'border-border-subtle text-text-secondary hover:border-brand/40 hover:text-white',
+                      size === s ? 'bg-brand text-text-primary border-brand shadow-button' : 'border-border-subtle text-text-secondary hover:border-brand/40 hover:text-text-primary',
                     )}
                   >
                     {s}
@@ -136,7 +136,7 @@ export default function ProductPage() {
                     onClick={() => setColor(c)}
                     className={cn(
                       'h-10 px-4 rounded-xl border font-semibold transition-all text-xs sm:text-sm',
-                      color === c ? 'bg-brand text-white border-brand shadow-button' : 'border-border-subtle text-text-secondary hover:border-brand/40 hover:text-white',
+                      color === c ? 'bg-brand text-text-primary border-brand shadow-button' : 'border-border-subtle text-text-secondary hover:border-brand/40 hover:text-text-primary',
                     )}
                   >
                     {c}
@@ -152,14 +152,14 @@ export default function ProductPage() {
             <div className="inline-flex items-center gap-1 border border-border-subtle rounded-xl p-1">
               <button
                 onClick={() => setQty((q) => Math.max(1, q - 1))}
-                className="h-9 w-9 rounded-lg hover:bg-bg-elevated text-white flex items-center justify-center"
+                className="h-9 w-9 rounded-lg hover:bg-bg-elevated text-text-primary flex items-center justify-center"
               >
                 <MinusIcon className="h-4 w-4" />
               </button>
-              <span className="w-10 text-center font-semibold text-white text-sm">{qty}</span>
+              <span className="w-10 text-center font-semibold text-text-primary text-sm">{qty}</span>
               <button
                 onClick={() => setQty((q) => Math.min(10, q + 1))}
-                className="h-9 w-9 rounded-lg hover:bg-bg-elevated text-white flex items-center justify-center"
+                className="h-9 w-9 rounded-lg hover:bg-bg-elevated text-text-primary flex items-center justify-center"
               >
                 <PlusIcon className="h-4 w-4" />
               </button>

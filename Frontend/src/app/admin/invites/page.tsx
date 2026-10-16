@@ -133,7 +133,7 @@ export default function InvitesPage() {
       {/* Header */}
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="min-w-0">
-          <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl text-white truncate">
+          <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl text-text-primary truncate">
             {text.title}
           </h1>
           <p className="text-text-secondary mt-1 text-xs sm:text-sm">{text.subtitle}</p>
@@ -142,13 +142,13 @@ export default function InvitesPage() {
           <button
             onClick={load}
             className="flex-shrink-0 h-10 w-10 rounded-xl border border-border-subtle
-                       flex items-center justify-center text-white hover:bg-bg-elevated transition"
+                       flex items-center justify-center text-text-primary hover:bg-bg-elevated transition"
           >
             <ArrowPathIcon className="h-4 w-4" />
           </button>
           <button
             onClick={() => setShowCreate(true)}
-            className="flex-1 sm:flex-none h-10 px-4 rounded-xl bg-brand text-white font-semibold text-sm
+            className="flex-1 sm:flex-none h-10 px-4 rounded-xl bg-brand text-text-primary font-semibold text-sm
                        shadow-button hover:bg-brand-dark active:scale-[0.98]
                        transition-all flex items-center justify-center gap-2"
           >
@@ -167,7 +167,7 @@ export default function InvitesPage() {
           onChange={(e) => setSearch(e.target.value)}
           placeholder={text.search}
           className="w-full h-11 pl-10 pr-3 rounded-xl bg-bg-elevated border border-border-subtle
-                     text-white placeholder-text-muted/60 text-sm
+                     text-text-primary placeholder-text-muted/60 text-sm
                      focus:outline-none focus:border-brand focus:ring-2 focus:ring-brand/30"
         />
       </div>
@@ -264,7 +264,7 @@ export default function InvitesPage() {
                   <button
                     type="button"
                     onClick={() => { setShowCreate(false); setError(''); }}
-                    className="flex-1 h-12 rounded-xl border border-border-subtle text-white font-medium text-sm
+                    className="flex-1 h-12 rounded-xl border border-border-subtle text-text-primary font-medium text-sm
                                hover:bg-bg-surface transition"
                   >
                     {text.cancel}
@@ -273,7 +273,7 @@ export default function InvitesPage() {
                     type="submit"
                     onClick={handleCreate}
                     disabled={creating}
-                    className="flex-1 h-12 rounded-xl bg-brand text-white font-semibold text-sm
+                    className="flex-1 h-12 rounded-xl bg-brand text-text-primary font-semibold text-sm
                                hover:bg-brand-dark disabled:opacity-50 transition
                                flex items-center justify-center gap-2"
                   >
